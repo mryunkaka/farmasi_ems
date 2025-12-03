@@ -1,4 +1,4 @@
-name: Auto Deploy to Hosting
+name: Deploy EMS
 
 on:
   push:
@@ -7,14 +7,13 @@ on:
 
 jobs:
   ftp-deploy:
-    name: 🚀 Deploy to Hosting via FTP
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Deploy to FTP Server
+      - name: Deploy to EMS Folder
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -22,6 +21,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
+
+          # Folder project di komputer → upload semua
           local-dir: ./
-          server-dir: /public_html/
+
+          # Folder target di hosting kamu
+          server-dir: /public_html/ems/
+
+          # Timeout biar tidak error
           timeout: 600000
