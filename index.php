@@ -192,6 +192,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pkgIfaksId     = (int)($_POST['package_ifaks'] ?? 0);      // Paket IFAKS
             $pkgPainId      = (int)($_POST['package_painkiller'] ?? 0); // Paket Painkiller
 
+            // Flag dari front-end: apakah user setuju override batas harian
+            $forceOverLimit = isset($_POST['force_overlimit']) && $_POST['force_overlimit'] === '1';
+
             if ($consumerName === '') {
                 $errors[] = "Nama konsumen wajib diisi.";
             }
@@ -287,8 +290,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $overLimit = true;
                 }
 
-                if ($overLimit) {
-                    // Jangan simpan ke database sama sekali
+                if ($overLimit && !$forceOverLimit) {
+                    // Batas harian terlewati, tapi user TIDAK setuju override → batal
                     $errors[] = "Transaksi untuk {$consumerName} dibatalkan karena melebihi batas harian.";
                 } else {
                     // Waktu sekarang (WITA)
@@ -296,12 +299,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Insert 1 row per paket yang dipilih
                     $stmtInsert = $pdo->prepare("
-                        INSERT INTO sales 
-                        (consumer_name, medic_name, medic_jabatan, package_id, package_name, price, 
-                         qty_bandage, qty_ifaks, qty_painkiller, created_at)
-                        VALUES
-                        (:cname, :mname, :mjab, :pid, :pname, :price, :qb, :qi, :qp, :created_at)
-                    ");
+        INSERT INTO sales 
+        (consumer_name, medic_name, medic_jabatan, package_id, package_name, price, 
+         qty_bandage, qty_ifaks, qty_painkiller, created_at)
+        VALUES
+        (:cname, :mname, :mjab, :pid, :pname, :price, :qb, :qi, :qp, :created_at)
+    ");
 
                     foreach ($selectedIds as $id) {
                         $p = $packagesSelected[$id];
@@ -320,10 +323,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ]);
                     }
 
-                    $messages[] = "Transaksi untuk {$consumerName} berhasil disimpan (" . count($selectedIds) . " paket).";
+                    if ($overLimit && $forceOverLimit) {
+                        // Disimpan walaupun lewat batas
+                        $warnings[] = "Transaksi untuk {$consumerName} tetap disimpan walaupun melebihi batas harian (override oleh petugas).";
+                    } else {
+                        $messages[] = "Transaksi untuk {$consumerName} berhasil disimpan (" . count($selectedIds) . " paket).";
+                    }
 
                     $clearFormNextLoad = true; // tandai bahwa form boleh dikosongkan setelah redirect
-
                 }
             }
         }
@@ -1130,6 +1137,8 @@ $sheetEditUrl = sprintf(
 
                 <form method="post" id="saleForm">
                     <input type="hidden" name="action" value="add_sale">
+                    <!-- Tambahan: flag untuk override batas harian -->
+                    <input type="hidden" name="force_overlimit" id="force_overlimit" value="0">
                     <div class="row">
                         <div class="col">
                             <label>Nama Konsumen</label>
@@ -1155,8 +1164,9 @@ $sheetEditUrl = sprintf(
                             </select>
                             <small>
                                 Paket A bisa dikombinasikan dengan paket lain selama tidak melewati batas harian.
-                                Jika total item melewati batas, transaksi akan dibatalkan.
+                                Jika total item melewati batas, sistem akan memberi peringatan dan minta konfirmasi sebelum tetap disimpan.
                             </small>
+
                         </div>
                     </div>
 
@@ -1215,9 +1225,14 @@ $sheetEditUrl = sprintf(
                         <div class="total-amount" id="totalPriceDisplay">$ 0</div>
                     </div>
 
-                    <div style="margin-top:10px;">
+                    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
                         <button type="button" id="btnSubmit" class="btn-primary" onclick="handleSaveClick();">
                             Simpan Transaksi
+                        </button>
+
+                        <!-- Tombol CLEAR untuk menghapus inputan yang lengket -->
+                        <button type="button" class="btn-secondary" onclick="clearFormInputs();">
+                            Clear
                         </button>
                     </div>
                 </form>
@@ -1507,6 +1522,8 @@ $sheetEditUrl = sprintf(
         // Total harian per konsumen dari PHP (key = nama kecil trim)
         const DAILY_TOTALS = <?= json_encode($dailyTotalsJS, JSON_UNESCAPED_UNICODE); ?>;
         const DAILY_DETAIL = <?= json_encode($dailyDetailJS, JSON_UNESCAPED_UNICODE); ?>;
+        // Flag global: apakah pilihan saat ini menyebabkan melewati batas harian
+        let IS_OVER_LIMIT = false;
 
         const STORAGE_KEY = 'farmasi_ems_form';
 
@@ -1668,7 +1685,8 @@ $sheetEditUrl = sprintf(
                     html += '⚠️ <strong>' + escapeHtml(cname) +
                         '</strong> telah melebihi batas harian: ' +
                         messageParts.join(', ') +
-                        '.<br>Transaksi <strong>tidak dapat disimpan</strong> karena batas harian obat sudah tercapai.<br>';
+                        '.<br>Secara aturan normal, transaksi ini <strong>melebihi batas harian</strong> obat.<br>' +
+                        'Jika tetap ingin menyimpan, klik tombol <strong>Simpan Transaksi</strong> lalu konfirmasi di popup.<br>';
 
                     if (detail.length > 0) {
                         html += '<br><strong>Riwayat pembelian hari ini (data dari database):</strong>';
@@ -1689,18 +1707,19 @@ $sheetEditUrl = sprintf(
                         html += '<br><small>Catatan: untuk nama ini belum ada riwayat di database pada hari ini, atau transaksi sebelumnya belum tersimpan.</small>';
                     }
 
-                    html += '<br><small>Silakan arahkan konsumen ke petugas medis untuk penjelasan lebih lanjut.</small>';
+                    html += '<br><small>Pastikan konsumen sudah mendapat penjelasan sebelum melakukan override batas harian.</small>';
                 } else {
                     html += '⚠️ Batas harian akan terlewati. Isi nama konsumen untuk melihat riwayat pembelian dari database.';
                 }
 
                 warningBox.style.display = 'block';
                 warningBox.innerHTML = html;
-                if (btnSubmit) btnSubmit.disabled = true;
+                // Tandai bahwa transaksi ini akan melewati batas
+                IS_OVER_LIMIT = true;
             } else {
                 warningBox.style.display = 'none';
                 warningBox.innerHTML = '';
-                if (btnSubmit) btnSubmit.disabled = false;
+                IS_OVER_LIMIT = false;
             }
         }
 
@@ -1720,38 +1739,129 @@ $sheetEditUrl = sprintf(
             }
         }
 
+        function clearFormInputs() {
+            const consumerInput = document.querySelector('input[name="consumer_name"]');
+
+            if (consumerInput) {
+                consumerInput.value = '';
+            }
+
+            ['pkg_main', 'pkg_bandage', 'pkg_ifaks', 'pkg_painkiller'].forEach(function(id) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = '';
+                }
+            });
+
+            // Hapus state di localStorage supaya benar-benar bersih
+            try {
+                localStorage.removeItem(STORAGE_KEY);
+            } catch (e) {
+                // abaikan error
+            }
+
+            // Sembunyikan warning limit (kalau ada)
+            const warningBox = document.getElementById('limitWarning');
+            if (warningBox) {
+                warningBox.style.display = 'none';
+                warningBox.innerHTML = '';
+            }
+
+            const btnSubmit = document.getElementById('btnSubmit');
+            if (btnSubmit) {
+                btnSubmit.disabled = false;
+            }
+
+            // Reset flag over-limit & hidden input override
+            IS_OVER_LIMIT = false;
+            const forceOver = document.getElementById('force_overlimit');
+            if (forceOver) {
+                forceOver.value = '0';
+            }
+
+            // Hitung ulang total (akan jadi 0 semua)
+            recalcTotals();
+        }
+
         function handleSaveClick() {
             const btnSubmit = document.getElementById('btnSubmit');
             const form = document.getElementById('saleForm');
+            const consumerInput = document.querySelector('input[name="consumer_name"]');
+            const cname = consumerInput ? consumerInput.value.trim() : '';
 
-            // Kalau tombol sudah di-disable karena limit harian, jangan boleh submit
-            if (btnSubmit && btnSubmit.disabled) {
-                alert('Transaksi tidak bisa disimpan karena melebihi batas harian.\nSilakan koreksi pilihan paket atau nama konsumen.');
-                return;
-            }
+            const baseTotals = getBaseTotalsForConsumer(cname);
+            const hasPrevious = (baseTotals.bandage + baseTotals.ifaks + baseTotals.painkiller) > 0;
 
-            // Ambil tampilan total harga
             const totalPriceDisplay = document.getElementById('totalPriceDisplay');
             const totalText = totalPriceDisplay ? totalPriceDisplay.textContent : '$ 0';
 
-            const ok = confirm(
-                "Yakin ingin menyimpan transaksi ke database?\n\n" +
-                "Sebelum menyimpan, mohon catat total harga / billing terlebih dahulu.\n" +
-                "Total saat ini: " + totalText + "\n\n" +
-                "Pilih OK (Yes) untuk menyimpan, atau Cancel untuk kembali mengecek."
-            );
-
-            if (!ok) {
-                // User batal → jangan submit
-                return;
+            const forceOverInput = document.getElementById('force_overlimit');
+            if (forceOverInput) {
+                // default: tidak override
+                forceOverInput.value = '0';
             }
 
-            // Lindungi dari double submit / klik cepat berkali-kali
+            let msg = "";
+
+            if (IS_OVER_LIMIT) {
+                // Kasus: kalau disimpan, dia akan MELEBIHI batas harian
+                msg += "⚠️ Orang ini telah mencapai / akan melewati batas maksimal pembelian harian.\n\n";
+
+                if (cname) {
+                    msg += "Nama konsumen: " + cname + "\n\n" +
+                        "Total SEBELUM transaksi ini (data di database):\n" +
+                        "- Bandage   : " + baseTotals.bandage + "/" + MAX_BANDAGE + "\n" +
+                        "- IFAKS     : " + baseTotals.ifaks + "/" + MAX_IFAKS + "\n" +
+                        "- Painkiller: " + baseTotals.painkiller + "/" + MAX_PAINKILLER + "\n\n";
+                }
+
+                msg +=
+                    "Yakin ingin TETAP memasukkan transaksi ini ke database " +
+                    "walaupun batas maksimal satu hari sudah tercapai?\n\n" +
+                    "Total saat ini: " + totalText + "\n\n" +
+                    "Pilih OK (Yes) untuk menyimpan ke database, atau Cancel untuk membatalkan.";
+
+                const ok = confirm(msg);
+                if (!ok) {
+                    return;
+                }
+
+                // User setuju override → beritahu server
+                if (forceOverInput) {
+                    forceOverInput.value = '1';
+                }
+            } else {
+                // Tidak melewati batas, tapi mungkin sudah pernah beli
+                msg += "Yakin ingin menyimpan transaksi ke database?\n\n";
+
+                if (cname) {
+                    msg += "Nama konsumen: " + cname + "\n\n";
+
+                    if (hasPrevious) {
+                        msg +=
+                            "Catatan: orang ini sudah pernah melakukan pembelian hari ini.\n" +
+                            "Total SEBELUM transaksi ini (data di database):\n" +
+                            "- Bandage   : " + baseTotals.bandage + "/" + MAX_BANDAGE + "\n" +
+                            "- IFAKS     : " + baseTotals.ifaks + "/" + MAX_IFAKS + "\n" +
+                            "- Painkiller: " + baseTotals.painkiller + "/" + MAX_PAINKILLER + "\n\n";
+                    }
+                }
+
+                msg +=
+                    "Total saat ini: " + totalText + "\n\n" +
+                    "Pilih OK (Yes) untuk menyimpan, atau Cancel untuk kembali mengecek.";
+
+                const ok = confirm(msg);
+                if (!ok) {
+                    return;
+                }
+            }
+
+            // Lindungi dari double submit / klik cepat
             if (btnSubmit) {
                 btnSubmit.disabled = true;
             }
 
-            // Submit form secara manual
             if (form) {
                 form.submit();
             }
