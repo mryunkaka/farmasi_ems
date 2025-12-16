@@ -5,43 +5,12 @@
 date_default_timezone_set('Asia/Makassar');
 
 // -------------------------------------------
-// DETEKSI ENVIRONMENT: LOKAL vs HOSTING
+// Konfigurasi database
 // -------------------------------------------
-// CLI (php.exe sync_from_sheet.php) dianggap LOKAL
-$isCli = (PHP_SAPI === 'cli');
-
-// HTTP_HOST hanya ada di mode web
-$httpHost = $_SERVER['HTTP_HOST'] ?? '';
-
-// Lokal kalau:
-// - jalan lewat CLI, atau
-// - host = localhost / 127.0.0.1 / IP lokal 192.168.x.x
-$isLocalWeb = in_array($httpHost, ['localhost', '127.0.0.1'], true)
-    || strpos($httpHost, '192.168.') === 0;
-
-$isLocal = $isCli || $isLocalWeb;
-
-// -------------------------------------------
-// Konfigurasi database (LOKAL & HOSTING)
-// -------------------------------------------
-if ($isLocal) {
-    // ====== MODE LOKAL (Laragon / XAMPP) ======
-    $DB_HOST = 'localhost';
-    $DB_NAME = 'farmasi_db';
-    $DB_USER = 'root';
-    $DB_PASS = 'Jal&jar123';
-} else {
-    // ====== MODE HOSTING (Rumahweb / cPanel) ======
-    // >>> ISI SESUAI DATA DI CPANEL <<<
-
-    // biasanya host tetap 'localhost' di shared hosting
-    $DB_HOST = 'localhost';
-
-    // ganti dengan nama database & user di hosting kamu
-    $DB_NAME = 'hark8423_ems';
-    $DB_USER = 'hark8423_adam';
-    $DB_PASS = 'Jal&jar123';
-}
+$DB_HOST = 'localhost';
+$DB_NAME = 'farmasi_db';
+$DB_USER = 'root';
+$DB_PASS = 'Jal&jar123';
 
 // File konfigurasi spreadsheet (shared dengan halaman web)
 $configFile = __DIR__ . '/sheet_config.json';

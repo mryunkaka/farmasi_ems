@@ -5,43 +5,12 @@
 date_default_timezone_set('Asia/Makassar');
 
 // -------------------------------------------
-// DETEKSI ENVIRONMENT: LOKAL vs HOSTING
+// Konfigurasi database
 // -------------------------------------------
-// CLI (php.exe sync_from_sheet.php) dianggap LOKAL
-$isCli = (PHP_SAPI === 'cli');
-
-// HTTP_HOST hanya ada di mode web
-$httpHost = $_SERVER['HTTP_HOST'] ?? '';
-
-// Lokal kalau:
-// - jalan lewat CLI, atau
-// - host = localhost / 127.0.0.1 / IP lokal 192.168.x.x
-$isLocalWeb = in_array($httpHost, ['localhost', '127.0.0.1'], true)
-    || strpos($httpHost, '192.168.') === 0;
-
-$isLocal = $isCli || $isLocalWeb;
-
-// -------------------------------------------
-// Konfigurasi database (LOKAL & HOSTING)
-// -------------------------------------------
-if ($isLocal) {
-    // ====== MODE LOKAL (Laragon / XAMPP) ======
-    $DB_HOST = 'localhost';
-    $DB_NAME = 'farmasi_db';
-    $DB_USER = 'root';
-    $DB_PASS = 'Jal&jar123';
-} else {
-    // ====== MODE HOSTING (Rumahweb / cPanel) ======
-    // >>> ISI SESUAI DATA DI CPANEL <<<
-
-    // biasanya host tetap 'localhost' di shared hosting
-    $DB_HOST = 'localhost';
-
-    // ganti dengan nama database & user di hosting kamu
-    $DB_NAME = 'hark8423_ems';
-    $DB_USER = 'hark8423_adam';
-    $DB_PASS = 'Jal&jar123';
-}
+$DB_HOST = 'localhost';
+$DB_NAME = 'farmasi_db';
+$DB_USER = 'root';
+$DB_PASS = 'Jal&jar123';
 
 // -------------------------------------------
 // File konfigurasi spreadsheet (JSON)
@@ -489,7 +458,7 @@ foreach ($detailRows as $row) {
 // -------------------------------------------
 // FILTER TANGGAL (GET)
 // -------------------------------------------
-$validRanges = ['today', 'week1', 'week2', 'week3', 'week4', 'month', 'custom'];
+$validRanges = ['today', 'yesterday', 'last7', 'week1', 'week2', 'week3', 'week4', 'month', 'custom'];
 $range       = $_GET['range'] ?? 'today';
 if (!in_array($range, $validRanges, true)) {
     $range = 'today';
@@ -510,6 +479,22 @@ $lastOfMonth  = (clone $firstOfMonth);
 $lastOfMonth->modify('last day of this month')->setTime(23, 59, 59);
 
 switch ($range) {
+    case 'yesterday':
+        // 1 hari sebelumnya, tanpa hari ini
+        $startDT = new DateTime($todayDate . ' 00:00:00');
+        $startDT->modify('-1 day');
+        $endDT = new DateTime($todayDate . ' 23:59:59');
+        $endDT->modify('-1 day');
+        break;
+
+    case 'last7':
+        // Mundur 1–7 hari sebelumnya (7 hari terakhir TANPA hari ini)
+        // Misal hari ini 10 → range 3 s/d 9
+        $endDT = new DateTime($todayDate . ' 23:59:59');
+        $endDT->modify('-1 day');          // kemarin
+        $startDT = clone $endDT;
+        $startDT->modify('-6 days');       // 6 hari sebelum kemarin → total 7 hari
+        break;
     case 'week1':
         $startDT = clone $firstOfMonth;
         $endDT   = new DateTime(sprintf('%04d-%02d-%02d 23:59:59', $year, $month, min(7, (int)$lastOfMonth->format('d'))));
@@ -1043,6 +1028,12 @@ $sheetEditUrl = sprintf(
                 font-size: 13px;
             }
         }
+
+        tfoot th {
+            background: #020617;
+            font-weight: 700;
+            border-top: 2px solid #2563eb;
+        }
     </style>
 </head>
 
@@ -1280,6 +1271,12 @@ $sheetEditUrl = sprintf(
                             <label>Rentang Tanggal</label>
                             <select name="range" id="rangeSelect">
                                 <option value="today" <?= $range === 'today' ? 'selected' : '' ?>>Hari ini</option>
+                                <option value="yesterday" <?= $range === 'yesterday' ? 'selected' : '' ?>>
+                                    Kemarin (1 hari sebelumnya)
+                                </option>
+                                <option value="last7" <?= $range === 'last7' ? 'selected' : '' ?>>
+                                    7 hari terakhir (mundur 1–7 hari)
+                                </option>
                                 <option value="week1" <?= $range === 'week1' ? 'selected' : '' ?>>Minggu 1 (1-7)</option>
                                 <option value="week2" <?= $range === 'week2' ? 'selected' : '' ?>>Minggu 2 (8-14)</option>
                                 <option value="week3" <?= $range === 'week3' ? 'selected' : '' ?>>Minggu 3 (15-21)</option>
@@ -1485,6 +1482,16 @@ $sheetEditUrl = sprintf(
                                         <th>Bonus (40%)</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="6" style="text-align:right;">TOTAL</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     <?php foreach ($filteredSales as $s): ?>
                                         <?php $bonus = (int)floor(((int)$s['price']) * 0.4); ?>
@@ -2009,15 +2016,54 @@ $sheetEditUrl = sprintf(
             if (window.jQuery && jQuery.fn.DataTable) {
                 const table = jQuery('#salesTable').DataTable({
                     pageLength: 10,
-                    lengthMenu: [
-                        [10, 20, 50, 100, -1],
-                        [10, 20, 50, 100, "Semua"]
-                    ],
                     order: [
                         [1, 'desc']
-                    ], // urut berdasarkan kolom Waktu (index 1)
+                    ],
                     language: {
                         url: "https://cdn.datatables.net/plug-ins/1.13.8/i18n/id.json"
+                    },
+                    footerCallback: function(row, data, start, end, display) {
+                        let api = this.api();
+
+                        function intVal(i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[^\d]/g, '') * 1 :
+                                typeof i === 'number' ?
+                                i :
+                                0;
+                        }
+
+                        let totalBandage = api.column(6, {
+                                search: 'applied'
+                            }).data()
+                            .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+                        let totalIfaks = api.column(7, {
+                                search: 'applied'
+                            }).data()
+                            .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+                        let totalPain = api.column(8, {
+                                search: 'applied'
+                            }).data()
+                            .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+                        let totalPrice = api.column(9, {
+                                search: 'applied'
+                            }).data()
+                            .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+                        let totalBonus = api.column(10, {
+                                search: 'applied'
+                            }).data()
+                            .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+                        // ⬇️ INI KUNCI UTAMANYA
+                        jQuery(api.column(6).footer()).html(totalBandage);
+                        jQuery(api.column(7).footer()).html(totalIfaks);
+                        jQuery(api.column(8).footer()).html(totalPain);
+                        jQuery(api.column(9).footer()).html(totalPrice);
+                        jQuery(api.column(10).footer()).html(totalBonus);
                     }
                 });
 
