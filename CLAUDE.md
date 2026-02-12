@@ -125,6 +125,164 @@ require_once __DIR__ . '/../helpers/session_helper.php';
 forceReloadUserSession($pdo, $_SESSION['user_rh']['id']);
 ```
 
+## Arsitektur CSS
+
+### Struktur File CSS
+- **`assets/css/app.css`** - Base styles, utility classes (`.hidden`, scrollbar, dll)
+- **`assets/css/components.css`** - Komponen UI (`.stat-box`, modals, forms, dropdowns, dll)
+- **`assets/css/layout.css`** - Layout-specific styles (grid, flexbox, dll)
+- **`assets/css/responsive.css`** - Media queries dan responsive breakpoints
+- **`assets/css/login.css`** - Halaman login spesifik
+
+### Penting: Hindari Duplikasi CSS
+**JANGAN** mendefinisikan class yang sama di lebih dari satu file CSS:
+- ❌ Duplikasi `.stat-box` di app.css dan components.css → tumpang tindih
+- ❌ Duplikasi `.hidden` di multiple files → gunakan yang sudah ada di app.css
+- ✅ Definisi class di SATU file saja, atau gunakan @import jika perlu
+
+### Class CSS Utama
+- `.hidden` - Utility untuk menyembunyikan elemen (display: none)
+- `.stat-box` - Box statistik dengan gradient background, digunakan di ringkasan gaji
+- `.ringkasan-gaji-grid` - Grid layout untuk stat-box gaji (CSS Grid)
+- `.modal-overlay` & `.modal-box` - Pattern modal pop-up
+- `.consumer-search-dropdown` - Dropdown autocomplete
+- `.consumer-search-item` - Item dalam dropdown autocomplete
+- `.consumer-search-name` & `.consumer-search-meta` - Styling teks dalam autocomplete
+
+## Pola Autocomplete (Search-as-You-Type)
+
+### Referensi Implementasi
+**`dashboard/events.php`** adalah referensi utama untuk pola autocomplete.
+
+### Struktur Autocomplete
+1. **Input Text** dengan `autocomplete="off"`:
+```html
+<input type="text" id="searchInput" autocomplete="off" placeholder="Ketik untuk mencari...">
+<div id="searchDropdown" class="consumer-search-dropdown hidden"></div>
+```
+
+2. **JavaScript Event Handler**:
+```javascript
+const input = document.getElementById('searchInput');
+const dropdown = document.getElementById('searchDropdown');
+let controller = null;
+
+input.addEventListener('input', () => {
+    const keyword = input.value.trim();
+
+    // Reset jika kurang dari 2 karakter
+    if (keyword.length < 2) {
+        dropdown.classList.add('hidden');
+        dropdown.innerHTML = '';
+        return;
+    }
+
+    // Abort request sebelumnya (debouncing)
+    if (controller) controller.abort();
+    controller = new AbortController();
+
+    // Fetch data
+    fetch('ajax/search_endpoint.php?q=' + encodeURIComponent(keyword), {
+        signal: controller.signal
+    })
+    .then(res => res.json())
+    .then(data => {
+        // Clear dropdown
+        dropdown.innerHTML = '';
+
+        if (!data.length) {
+            dropdown.classList.add('hidden');
+            return;
+        }
+
+        // Create setiap item
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'consumer-search-item';
+            // ... Populate item HTML
+            div.addEventListener('click', () => {
+                input.value = item.name;
+                dropdown.classList.add('hidden');
+                dropdown.innerHTML = '';
+            });
+            dropdown.appendChild(div);
+        });
+
+        dropdown.classList.remove('hidden');
+    })
+    .catch(error => {
+        // Handle abort atau error
+    });
+});
+
+// Close dropdown saat klik di luar
+document.addEventListener('click', (e) => {
+    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add('hidden');
+    }
+});
+```
+
+3. **AJAX Endpoint** - Case-insensitive search:
+```php
+// ajax/search_user_rh.php
+$q = trim($_GET['q'] ?? '');
+
+if (strlen($q) < 2) {
+    echo json_encode([]);
+    exit;
+}
+
+$stmt = $pdo->prepare("
+    SELECT id, full_name, batch, position
+    FROM user_rh
+    WHERE LOWER(full_name) LIKE LOWER(CONCAT('%', ?, '%'))
+      AND is_active = 1
+    ORDER BY full_name ASC
+    LIMIT 10
+");
+$stmt->execute([$q]);
+echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+```
+
+## Sistem Gaji (Salary)
+
+### Halaman Utama
+**`dashboard/gaji.php`** - Menampilkan rekap gaji mingguan dengan fitur:
+- Filter rentang tanggal (today, week1-week4, custom)
+- Ringkasan statistik: Total Transaksi, Total Rupiah, Total Bonus (40%)
+- **Sudah Dibayarkan** - Total bonus yang sudah dibayar (status='paid')
+- **Sisa Bonus** - Total Bonus - Sudah Dibayarkan
+- Tabel daftar gaji dengan tombol "Bayar" untuk status pending
+- Modal konfirmasi pembayaran dengan opsi:
+  - **Langsung Dibayar** - paid_by = nama pelaksana
+  - **Titip ke** - paid_by = "Titip ke: [nama] (oleh [pelaksana])"
+- Tanggal pembayaran ditampilkan di bawah kolom "Dibayar Oleh"
+
+### Proses Pembayaran
+**`dashboard/gaji_pay_process.php`** - Handler JSON POST untuk pembayaran:
+- Menerima: `salary_id`, `pay_method` (direct/titip), `titip_to` (user ID)
+- Update tabel `salary`: status='paid', paid_at=NOW(), paid_by=...
+- Gunakan transaction database untuk konsistensi
+
+### Query Gaji
+```php
+// Total bonus dalam rentang waktu
+$stmt = $pdo->prepare("
+    SELECT SUM(bonus_40) AS total_bonus
+    FROM salary
+    WHERE period_end BETWEEN :start AND :end
+");
+
+// Total yang sudah dibayar
+$stmtPaid = $pdo->prepare("
+    SELECT SUM(bonus_40) AS total_paid_bonus
+    FROM salary
+    WHERE period_end BETWEEN :start AND :end
+    AND status = 'paid'
+");
+```
+
 ## Tabel Database
 
 ### Manajemen User & Staf
@@ -259,10 +417,11 @@ Beberapa halaman memiliki fungsi test/preview. Cari file `test_*.php` di direkto
 | `ajax/store_consumer.php` | Simpan data konsumen |
 | `ajax/ocr_ktp.php` | OCR KTP (ekstraksi teks dari gambar) |
 | `ajax/check_nik.php` | Validasi NIK |
+| `ajax/search_user_rh.php` | Cari data user untuk autocomplete (case-insensitive) |
 | `actions/heartbeat.php` | Heartbeat user online |
 | `actions/toggle_farmasi_status.php` | Toggle status farmasi |
 | `actions/export_rekap_farmasi.php` | Ekspor rekap ke Excel |
-| `actions/ai_scoring_engine.php` - Engine scoring AI untuk kandidat |
+| `actions/ai_scoring_engine.php` | Engine scoring AI untuk kandidat |
 
 ## Fitur Khusus
 
