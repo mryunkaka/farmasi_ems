@@ -1,0 +1,18 @@
+[07-Jan-2026 02:43:16 Asia/Jakarta] PHP Warning:  Undefined array key "" in /home/hark8423/public_html/ems/ajax/ems_preview_price.php on line 29
+[07-Jan-2026 02:43:16 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: safeRegulation(): Argument #2 ($code) must be of type string, null given, called in /home/hark8423/public_html/ems/ajax/ems_preview_price.php on line 29 and defined in /home/hark8423/public_html/ems/config/helpers.php:50
+Stack trace:
+#0 /home/hark8423/public_html/ems/ajax/ems_preview_price.php(29): safeRegulation()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/config/helpers.php on line 50
+[11-Jan-2026 22:49:17 Asia/Jakarta] PHP Warning:  Undefined array key "" in /home/hark8423/public_html/ems/ajax/ems_preview_price.php on line 29
+[11-Jan-2026 22:49:17 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: safeRegulation(): Argument #2 ($code) must be of type string, null given, called in /home/hark8423/public_html/ems/ajax/ems_preview_price.php on line 29 and defined in /home/hark8423/public_html/ems/config/helpers.php:50
+Stack trace:
+#0 /home/hark8423/public_html/ems/ajax/ems_preview_price.php(29): safeRegulation()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/config/helpers.php on line 50
+[12-Jan-2026 14:05:11 Asia/Jakarta] PHP Warning:  Undefined array key "" in /home/hark8423/public_html/ems/ajax/ems_preview_price.php on line 29
+[12-Jan-2026 14:05:11 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: safeRegulation(): Argument #2 ($code) must be of type string, null given, called in /home/hark8423/public_html/ems/ajax/ems_preview_price.php on line 29 and defined in /home/hark8423/public_html/ems/config/helpers.php:50
+Stack trace:
+#0 /home/hark8423/public_html/ems/ajax/ems_preview_price.php(29): safeRegulation()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/config/helpers.php on line 50

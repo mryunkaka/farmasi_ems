@@ -1,0 +1,9 @@
+RECV TOKEN=[EMS_SYNC_9fA8D3KQmLxP0aW2] | CLIENT=[EMS-APP-SCRIPT]
+RECV TOKEN=[EMS_SYNC_9fA8D3KQmLxP0aW2] | CLIENT=[EMS-APP-SCRIPT]
+[15-Jan-2026 19:35:30 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'medic_id' in 'SELECT' in /home/hark8423/public_html/ems/api/sync_sales.php:15
+Stack trace:
+#0 /home/hark8423/public_html/ems/api/sync_sales.php(15): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/api/sync_sales.php on line 15
+RECV TOKEN=[EMS_SYNC_9fA8D3KQmLxP0aW2] | CLIENT=[EMS-APP-SCRIPT]
+RECV TOKEN=[EMS_SYNC_9fA8D3KQmLxP0aW2] | CLIENT=[EMS-APP-SCRIPT]

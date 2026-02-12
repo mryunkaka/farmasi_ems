@@ -1,0 +1,6 @@
+[2026-01-07 21:26:55] === OCR AJAX HIT ===
+[2026-01-07 21:26:55] POST | {"action":"ocr_ajax"}
+[2026-01-07 21:26:55] FILES_RAW | {"image":{"name":"1767796004376794561322656186027.jpg","full_path":"1767796004376794561322656186027.jpg","type":"","tmp_name":"","error":1,"size":0}}
+[2026-01-07 21:29:46] === OCR AJAX HIT ===
+[2026-01-07 21:29:46] POST | {"action":"ocr_ajax"}
+[2026-01-07 21:29:46] FILES_RAW | {"image":{"name":"1767796176243736532356045480014.jpg","full_path":"1767796176243736532356045480014.jpg","type":"image/jpeg","tmp_name":"/tmp/php0a948c6j0umi1ISihk2","error":0,"size":3713266}}
