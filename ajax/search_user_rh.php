@@ -10,8 +10,6 @@ if (strlen($q) < 2) {
     exit;
 }
 
-// Lanjut ke query
-
 // Gunakan LOWER() untuk pencarian case-insensitive
 $stmt = $pdo->prepare("
     SELECT
