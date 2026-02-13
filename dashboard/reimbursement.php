@@ -67,14 +67,18 @@ $sql = "
         r.reimbursement_code,
         MAX(r.billing_source_type) AS billing_source_type,
         MAX(r.billing_source_name) AS billing_source_name,
+        MAX(r.item_name) AS item_name,
         MAX(r.status) AS status,
         MIN(r.created_at) AS created_at,
         SUM(r.amount) AS total_amount,
         MAX(r.receipt_file) AS receipt_file,
         MAX(r.paid_at) AS paid_at,
-        MAX(u.full_name) AS paid_by_name
+        MAX(u.full_name) AS paid_by_name,
+        MAX(r.created_by) AS created_by_id,
+        MAX(cby.full_name) AS created_by_name
     FROM reimbursements r
     LEFT JOIN user_rh u ON u.id = r.paid_by
+    LEFT JOIN user_rh cby ON cby.id = r.created_by
     WHERE 1=1
 ";
 
@@ -171,6 +175,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <th>Tanggal</th>
                             <th>Kode</th>
                             <th>Sumber</th>
+                            <th>Diajukan Oleh</th>
                             <th>Status</th>
                             <th>Bukti</th>
                             <th>Total</th>
@@ -193,8 +198,19 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                 <!-- SUMBER -->
                                 <td>
-                                    <?= ucfirst($r['billing_source_type']) ?> –
-                                    <?= htmlspecialchars($r['billing_source_name']) ?>
+                                    <div>
+                                        <strong><?= ucfirst($r['billing_source_type']) ?> – <?= htmlspecialchars($r['billing_source_name']) ?></strong>
+                                    </div>
+                                    <?php if (!empty($r['item_name'])): ?>
+                                        <small style="color:#64748b;">
+                                            Item: <?= htmlspecialchars($r['item_name']) ?>
+                                        </small>
+                                    <?php endif; ?>
+                                </td>
+
+                                <!-- DIAJUKAN OLEH -->
+                                <td>
+                                    <?= !empty($r['created_by_name']) ? htmlspecialchars($r['created_by_name']) : '<span style="color:#9ca3af;">-</span>' ?>
                                 </td>
 
                                 <!-- STATUS -->
@@ -313,7 +329,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <input type="text" name="billing_source_name" placeholder="Contoh : Up And Atom, Queen Beach, Goverment, Dll" required>
 
             <label>Nama Item</label>
-            <input type="text" name="item_name" required>
+            <input type="text" name="item_name" placeholder="Contoh : Makanan & Minuman, Surat Keramaian" required>
 
             <div class="row-form-2">
                 <div>

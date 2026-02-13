@@ -183,5 +183,5 @@ $stmt->execute([
 ]);
 
 $_SESSION['flash_messages'][] = 'Reimbursement berhasil disimpan.';
-header('Location: reimbursement.php');
+header('Location: reimbursement.php?range=week4');
 exit;
