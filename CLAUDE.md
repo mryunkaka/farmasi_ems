@@ -42,15 +42,27 @@ Ini adalah **aplikasi PHP prosedural** dengan routing berbasis file. Arsitektur 
 - **Timezone**: Asia/Jakarta (+07:00)
 - **Koneksi**: PDO dengan `ERRMODE_EXCEPTION`
 
+**Keamanan**: File `config/database.php` berisi kredensial database hardcoded. Untuk production, pertimbangkan menggunakan:
+- Environment variables untuk menyimpan kredensial
+- File konfigurasi di luar web root
+- File `.env` (pastikan ditambahkan ke `.gitignore`)
+
 ### Dependencies
 Install via Composer:
 ```bash
 composer install
 ```
 
-Dependency utama:
-- `minishlink/web-push` - Web Push API untuk notifikasi browser
-- `phpoffice/phpspreadsheet` - Import/ekspor Excel (untuk fitur sales sync)
+**PENTING**: Pastikan dependency berikut sudah terinstall di `composer.json`:
+- `minishlink/web-push` - Web Push API untuk notifikasi browser (sudah ada)
+- `phpoffice/phpspreadsheet` - Import Excel untuk fitur sales sync (`actions/import_sales_excel.php`)
+
+Jika `phpoffice/phpspreadsheet` belum ada, jalankan:
+```bash
+composer require phpoffice/phpspreadsheet
+```
+
+Catatan: Ekspor Excel menggunakan HTML table sederhana dengan header `.xls`, bukan PhpSpreadsheet.
 
 ### Google Sheets Integration
 - **Config**: `dashboard/sheet_config.json`
@@ -61,6 +73,25 @@ Dependency utama:
 - **File log**: `storage/error_log.txt`
 - **Tampilan**: Dinonaktifkan di produksi (`display_errors = 0`)
 - **Logging**: Diaktifkan (`log_errors = 1`)
+
+### Environment Requirements
+- **PHP**: 7.4 atau lebih tinggi
+- **Extensions**: PDO, PDO_MySQL, mbstring, json, curl
+- **Web Server**: Apache (dengan mod_rewrite) atau Nginx
+- **Database**: MySQL 5.7+ atau MariaDB 10.2+
+
+### Setup Cron Jobs
+Untuk menjalankan tugas terjadwal otomatis, tambahkan ke crontab:
+```bash
+# Cek status online setiap 1 menit
+* * * * * php /path/to/farmasi-ems/cron/check_farmasi_online.php
+
+# Generate gaji mingguan setiap hari Minggu jam 23:59
+59 23 * * 0 php /path/to/farmasi-ems/cron/generate_weekly_salary.php
+
+# Cleanup data identitas sementara setiap jam
+0 * * * * php /path/to/farmasi-ems/cron/cron_cleanup_identity_temp.php
+```
 
 ## Perintah Pengembangan Umum
 
@@ -82,10 +113,17 @@ Impor skema SQL:
 mysql -u root -p farmasi_ems < tes.sql
 ```
 
+File skema database yang tersedia:
+- `tes.sql` - Skema database utama (ukuran kecil, untuk development)
+- `hark8423_ems (18).sql` - Skema database lengkap dengan data
+
+**PENTING**: Jangan commit file SQL yang berisi data produksi ke git.
+
 ## Titik Masuk Aplikasi
 
 - **Root**: `index.php` → redirect ke `/dashboard/rekap_farmasi.php`
 - **Dashboard Utama**: `dashboard/rekap_farmasi.php` (rekap farmasi)
+- **Dashboard Trainee**: `dashboard/index.php` (untuk position='trainee')
 - **Login**: `auth/login.php`
 
 ## Autentikasi & Autorisasi
@@ -118,12 +156,41 @@ if ($position === 'trainee') {
 }
 ```
 
+### Flash Messages Pattern
+Untuk menampilkan notifikasi setelah redirect:
+```php
+// Set flash message sebelum redirect
+$_SESSION['flash_messages'][] = 'Pesan sukses';
+$_SESSION['flash_warnings'][] = 'Peringatan';
+$_SESSION['flash_errors'][] = 'Error message';
+header('Location: another_page.php');
+exit;
+```
+
+Di halaman tujuan, ambil dan tampilkan:
+```php
+$messages = $_SESSION['flash_messages'] ?? [];
+$warnings = $_SESSION['flash_warnings'] ?? [];
+$errors   = $_SESSION['flash_errors']   ?? [];
+unset($_SESSION['flash_messages'], $_SESSION['flash_warnings'], $_SESSION['flash_errors']);
+```
+
 ### Reload Session Data
 Untuk memaksa reload data user dari database:
 ```php
 require_once __DIR__ . '/../helpers/session_helper.php';
 forceReloadUserSession($pdo, $_SESSION['user_rh']['id']);
 ```
+
+**Catatan**: `forceReloadUserSession()` menyimpan field tambahan di session (`batch`, `tanggal_masuk`, `citizen_id`, `no_hp_ic`, `jenis_kelamin`, `kode_nomor_induk_rs`) yang tidak ada di login standar `auth_guard.php`.
+
+### Login Flow & Redirects
+Login diproses di `auth/login_process.php` dengan fitur:
+- **Anti Double Login** - Cek token aktif di device lain, konfirmasi force login
+- **Verifikasi Akun** - `is_verified = 1` dan `is_active = 1` wajib
+- **Redirect berdasarkan position**:
+  - `trainee` → `/dashboard/index.php`
+  - Lainnya → `/dashboard/rekap_farmasi.php`
 
 ## Arsitektur CSS
 
@@ -332,6 +399,11 @@ $stmtPaid = $pdo->prepare("
 ### API & Integrasi
 - `api_tokens` - Token untuk integrasi eksternal (Apps Script)
 
+**Penggunaan API**:
+- Untuk akses API eksternal (misalnya Google Apps Script), gunakan token yang tersimpan di tabel ini
+- Handler API utama: `api/` directory
+- Validasi token biasanya dilakukan di awal setiap endpoint API
+
 ### Field Penting `user_rh`
 ```php
 [
@@ -353,9 +425,15 @@ $stmtPaid = $pdo->prepare("
 ## Push Notifications
 
 Aplikasi menggunakan Web Push API untuk notifikasi real-time:
-- **Service Worker**: `sw.js`
+- **Service Worker**: `sw.js` (di root, scope: `/`)
 - **Push Handler**: `actions/push_send.php`
 - **Tipe Notifikasi**: `idle_warning`, `offline`, pesan sistem
+- **Subscription**: Disimpan di tabel `user_push_subscriptions`
+
+Untuk setup HTTPS (wajib untuk push notifications), pastikan:
+- Service worker terdaftar dengan benar di dashboard
+- Endpoint push valid dan subscription tersimpan
+- VAPID keys dikonfigurasi (jika menggunakan VAPID)
 
 ## Penanganan Rentang Tanggal
 
@@ -369,7 +447,17 @@ Rentang yang didukung: `today`, `yesterday`, `week1` sampai `week4` (4-week roll
 
 ## Penanganan Error
 
-Gunakan fungsi helper untuk logging aplikasi:
+**Catatan Penting**: Fungsi `app_log()` **TIDAK** tersedia sebagai helper terpusat. Setiap file yang membutuhkan logging harus mendefinisikan fungsi ini sendiri di awal file:
+
+```php
+function app_log($message)
+{
+    $line = '[' . date('Y-m-d H:i:s') . '] ' . $message . PHP_EOL;
+    error_log($line, 3, __DIR__ . '/../storage/error_log.txt');
+}
+```
+
+Setelah mendefinisikan fungsi di atas, gunakan untuk logging aplikasi:
 ```php
 app_log('Pesan error Anda di sini');
 ```
@@ -387,8 +475,10 @@ Setelah include `config/helpers.php`:
 - `avatarColorFromName(string $name): string` - Generate warna avatar (HSL)
 - `formatTanggalID($datetime): string` - Format tanggal lengkap Indonesia (11 Jan 2026 14:30)
 - `formatTanggalIndo($date): string` - Format tanggal singkat Indonesia (11 Jan 26)
-- `dollar($amount): string` - Format currency dollar ($1.000)
+- `dollar($amount): string` - Format currency dollar ($1.000) - dengan format Indonesia (titik sebagai pemisah ribuan)
 - `safeRegulation(PDO $pdo, string $code): int` - Ambil harga regulasi medis (dengan random range jika perlu)
+
+**Catatan**: Fungsi `dollar()` menggunakan format Indonesia (titik sebagai pemisah ribuan), bukan format US. Nama fungsinya adalah `dollar()` tetapi formatnya adalah `$1.000` (bukan `$1,000`).
 
 ## Bahasa & Konvensi
 
@@ -493,3 +583,60 @@ Sinkronisasi data sales dari file Excel via `actions/import_sales_excel.php`.
 ### Price Type (`medical_regulations`)
 - `FIXED` - Harga tetap (pakai `price_min`)
 - `RANGE` - Harga range (random antara `price_min` - `price_max`)
+
+## Rekomendasi Pengembangan
+
+### Git (.gitignore)
+Buat file `.gitignore` di root project:
+```gitignore
+# Dependencies
+/vendor/
+
+# Sensitive files
+/config/database.php
+*.sql
+storage/*.log
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+storage/temp/*
+```
+
+### Security Checklist
+- [ ] Ganti kredensial database di production
+- [ ] Pastikan file `config/database.php` tidak di-commit
+- [ ] Validasi semua input user (terutama di AJAX endpoints)
+- [ ] Gunakan prepared statements PDO (sudah diterapkan)
+- [ ] Pastikan `auth/auth_guard.php` di-include di semua halaman yang dilindungi
+- [ ] Rate limiting untuk endpoint penting
+- [ ] Sanitasi output dengan `htmlspecialchars()` untuk mencegah XSS
+
+### Troubleshooting Common Issues
+
+**Session tidak tersimpan**:
+- Pastikan `session_start()` dipanggil sebelum output HTML
+- Cek permission directory session storage
+
+**Export Excel gagal**:
+- Export menggunakan HTML table dengan header `.xls` (bukan true XLS)
+- Pastikan tidak ada output sebelum `header()` calls
+
+**Push notification tidak berfungsi**:
+- Harus menggunakan HTTPS (wajib untuk Service Worker)
+- Cek subscription di tabel `user_push_subscriptions`
+- Pastikan VAPID keys valid (jika menggunakan VAPID)
+
+**Import Excel gagal**:
+- Pastikan `phpoffice/phpspreadsheet` sudah di-install via Composer
+- Cek format file harus `.xlsx` atau `.xls`
+- Pastikan kolom Excel sesuai format: Consumer Name, Package Name, Citizen ID (opsional)

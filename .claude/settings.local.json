@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(comm:*)"
+      "Bash(comm:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }

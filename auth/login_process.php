@@ -56,6 +56,15 @@ if ((int)$user['is_verified'] === 0) {
 }
 
 // =====================================================
+// CEK STATUS AKTIF USER (RESIGN CHECK)
+// =====================================================
+if ((int)$user['is_active'] === 0) {
+    $_SESSION['error'] = 'Akun telah dinonaktifkan. Silakan hubungi administrator.';
+    header("Location: login.php");
+    exit;
+}
+
+// =====================================================
 // CEK LOGIN DI DEVICE LAIN
 // =====================================================
 $stmt = $pdo->prepare("

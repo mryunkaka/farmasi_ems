@@ -10,7 +10,16 @@ session_start();
 require_once __DIR__ . '/../auth/auth_guard.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/helpers.php';
-require_once __DIR__ . '/../config/helpers.php';
+
+/*
+|--------------------------------------------------------------------------
+| SET DEFAULT RANGE = MINGGU LALU (SEBELUM INCLUDE date_range.php)
+|--------------------------------------------------------------------------
+*/
+if (!isset($_GET['range'])) {
+    $_GET['range'] = 'week3';
+}
+
 require_once __DIR__ . '/../config/date_range.php';
 
 /*
@@ -45,8 +54,8 @@ $canPayReimbursement = $userRole !== 'staff';
 | FILTER INPUT
 |--------------------------------------------------------------------------
 */
-$startDate = $_GET['start_date'] ?? '';
-$endDate   = $_GET['end_date'] ?? '';
+$startDate = $_GET['from'] ?? '';
+$endDate   = $_GET['to'] ?? '';
 
 /*
 |--------------------------------------------------------------------------
@@ -71,16 +80,24 @@ $sql = "
 
 $params = [];
 
-// 📅 FILTER TANGGAL
-if ($startDate && $endDate) {
-    $sql .= " AND DATE(created_at) BETWEEN :start_date AND :end_date";
+// 📅 FILTER TANGGAL - gunakan rangeStart/rangeEnd dari date_range.php
+$range = $_GET['range'] ?? 'week3';
+
+if ($range !== 'custom') {
+    $sql .= " AND DATE(r.created_at) BETWEEN :start_date AND :end_date";
+    $params[':start_date'] = $rangeStart;
+    $params[':end_date']   = $rangeEnd;
+} elseif ($startDate && $endDate) {
+    $sql .= " AND DATE(r.created_at) BETWEEN :start_date AND :end_date";
     $params[':start_date'] = $startDate;
     $params[':end_date']   = $endDate;
+} else {
+    // Jika custom tapi tidak ada tanggal, jangan filter apa-apa
 }
 
 $sql .= "
     GROUP BY reimbursement_code
-    ORDER BY created_at DESC
+    ORDER BY MIN(r.created_at) DESC
 ";
 
 $stmt = $pdo->prepare($sql);
@@ -93,7 +110,49 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="page" style="max-width:1200px;margin:auto;">
 
         <h1>Reimbursement</h1>
-        <p class="text-muted">Pengajuan penggantian dana operasional</p>
+        <p class="text-muted">
+            <?= htmlspecialchars($rangeLabel ?? '-') ?>
+            <small style="color:#999;">(Range: <?= htmlspecialchars($range) ?>, Start: <?= htmlspecialchars($rangeStart ?? 'null') ?>, End: <?= htmlspecialchars($rangeEnd ?? 'null') ?>)</small>
+        </p>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">Filter Rentang Tanggal</div>
+            <div class="card-body">
+                <form method="get" id="filterForm" class="filter-bar">
+                    <div class="filter-group">
+                        <label>Rentang</label>
+                        <select name="range" id="rangeSelect" class="form-control">
+                            <option value="week1" <?= ($_GET['range'] ?? 'week3') === 'week1' ? 'selected' : '' ?>>
+                                3 Minggu Lalu
+                            </option>
+                            <option value="week2" <?= ($_GET['range'] ?? 'week3') === 'week2' ? 'selected' : '' ?>>
+                                2 Minggu Lalu
+                            </option>
+                            <option value="week3" <?= ($_GET['range'] ?? 'week3') === 'week3' ? 'selected' : '' ?>>
+                                Minggu Lalu
+                            </option>
+                            <option value="week4" <?= ($_GET['range'] ?? 'week3') === 'week4' ? 'selected' : '' ?>>
+                                Minggu Ini
+                            </option>
+                            <option value="custom" <?= ($_GET['range'] ?? 'week3') === 'custom' ? 'selected' : '' ?>>
+                                Custom
+                            </option>
+                        </select>
+                    </div>
+                    <div class="filter-group filter-custom">
+                        <label>Tanggal Awal</label>
+                        <input type="date" name="from" value="<?= htmlspecialchars($startDate) ?>" class="form-control">
+                    </div>
+                    <div class="filter-group filter-custom">
+                        <label>Tanggal Akhir</label>
+                        <input type="date" name="to" value="<?= htmlspecialchars($endDate) ?>" class="form-control">
+                    </div>
+                    <div class="filter-group" style="align-self:flex-end;">
+                        <button type="submit" class="btn btn-primary">Terapkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="card">
             <div class="card-header"
@@ -102,43 +161,6 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <button id="btnAddReim" class="btn-success">
                     ➕ Input Reimbursement
                 </button>
-            </div>
-
-            <div class="search-panel">
-                <form method="get" class="search-form search-form-inline">
-
-                    <input type="hidden" name="start_date" id="startDate">
-                    <input type="hidden" name="end_date" id="endDate">
-
-                    <!-- CUSTOM DATE -->
-                    <div class="search-field search-field-date" id="customDateWrapper" style="display:none;">
-                        <input type="date" id="customStart">
-                    </div>
-
-                    <div class="search-field search-field-date" id="customDateWrapperEnd" style="display:none;">
-                        <input type="date" id="customEnd">
-                    </div>
-
-                    <!-- RANGE -->
-                    <div class="search-field search-field-range">
-                        <select name="range" id="rangeSelect">
-                            <option value="this_week">Minggu Ini</option>
-                            <option value="last_week">Minggu Lalu</option>
-                            <option value="2_weeks">2 Minggu Lalu</option>
-                            <option value="3_weeks">3 Minggu Lalu</option>
-                            <option value="custom">Custom</option>
-                        </select>
-                    </div>
-
-                    <div class="search-actions">
-                        <button type="submit" class="btn btn-primary">Filter</button>
-
-                        <?php if (!empty($_GET['range'])): ?>
-                            <a href="reimbursement.php" class="btn btn-secondary">Clear</a>
-                        <?php endif; ?>
-                    </div>
-
-                </form>
             </div>
 
             <div class="table-wrapper">
@@ -186,9 +208,9 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td>
                                     <?php if (!empty($r['receipt_file'])): ?>
                                         <a href="#"
-                                        class="doc-badge btn-preview-doc"
-                                        data-src="/<?= htmlspecialchars($r['receipt_file']) ?>"
-                                        data-title="Bukti Pembayaran <?= htmlspecialchars($r['reimbursement_code']) ?>">
+                                            class="doc-badge btn-preview-doc"
+                                            data-src="/<?= htmlspecialchars($r['receipt_file']) ?>"
+                                            data-title="Bukti Pembayaran <?= htmlspecialchars($r['reimbursement_code']) ?>">
                                             📄 Bukti
                                         </a>
                                     <?php else: ?>
@@ -248,17 +270,17 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </section>
 <script>
-function deleteReimbursement(code) {
-    if (!confirm('Yakin hapus reimbursement ini? Data akan hilang permanen!')) return;
+    function deleteReimbursement(code) {
+        if (!confirm('Yakin hapus reimbursement ini? Data akan hilang permanen!')) return;
 
-    fetch('reimbursement_delete.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'code=' + encodeURIComponent(code)
-    }).then(() => location.reload());
-}
+        fetch('reimbursement_delete.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'code=' + encodeURIComponent(code)
+        }).then(() => location.reload());
+    }
 </script>
 
 <!-- =================================================
@@ -288,7 +310,7 @@ function deleteReimbursement(code) {
             </select>
 
             <label>Nama Sumber</label>
-            <input type="text" name="billing_source_name" required>
+            <input type="text" name="billing_source_name" placeholder="Contoh : Up And Atom, Queen Beach, Goverment, Dll" required>
 
             <label>Nama Item</label>
             <input type="text" name="item_name" required>
@@ -338,77 +360,24 @@ function deleteReimbursement(code) {
 </div>
 
 <script>
-document.getElementById('rangeSelect')?.addEventListener('change', function () {
-    const range = this.value;
+    /* ===============================
+       TOGGLE CUSTOM DATE FIELDS
+   =============================== */
+    document.addEventListener('DOMContentLoaded', function() {
+        const rangeSelect = document.getElementById('rangeSelect');
+        const customFields = document.querySelectorAll('.filter-custom');
 
-    const startHidden = document.getElementById('startDate');
-    const endHidden   = document.getElementById('endDate');
+        function toggleCustom() {
+            if (rangeSelect.value === 'custom') {
+                customFields.forEach(el => el.style.display = 'block');
+            } else {
+                customFields.forEach(el => el.style.display = 'none');
+            }
+        }
 
-    const customStart = document.getElementById('customStart');
-    const customEnd   = document.getElementById('customEnd');
-
-    const wrapStart = document.getElementById('customDateWrapper');
-    const wrapEnd   = document.getElementById('customDateWrapperEnd');
-
-    const today = new Date();
-    let start, end;
-
-    function format(d) {
-        return d.toISOString().slice(0, 10);
-    }
-
-    wrapStart.style.display = 'none';
-    wrapEnd.style.display = 'none';
-
-    if (range === 'custom') {
-        startHidden.value = '';
-        endHidden.value = '';
-        wrapStart.style.display = 'block';
-        wrapEnd.style.display = 'block';
-        customStart.focus();
-        return;
-    }
-
-    if (range === 'this_week') {
-        const day = today.getDay() || 7;
-        start = new Date(today);
-        start.setDate(today.getDate() - day + 1);
-        end = new Date(start);
-        end.setDate(start.getDate() + 6);
-    }
-
-    if (range === 'last_week') {
-        const day = today.getDay() || 7;
-        end = new Date(today);
-        end.setDate(today.getDate() - day);
-        start = new Date(end);
-        start.setDate(end.getDate() - 6);
-    }
-
-    if (range === '2_weeks') {
-        start = new Date(today);
-        start.setDate(today.getDate() - 14);
-        end = today;
-    }
-
-    if (range === '3_weeks') {
-        start = new Date(today);
-        start.setDate(today.getDate() - 21);
-        end = today;
-    }
-
-    if (start && end) {
-        startHidden.value = format(start);
-        endHidden.value   = format(end);
-    }
-});
-
-document.getElementById('customStart')?.addEventListener('change', function () {
-    document.getElementById('startDate').value = this.value;
-});
-document.getElementById('customEnd')?.addEventListener('change', function () {
-    document.getElementById('endDate').value = this.value;
-});
+        rangeSelect.addEventListener('change', toggleCustom);
+        toggleCustom(); // initial load
+    });
 </script>
 
 <script>
@@ -585,9 +554,6 @@ document.getElementById('customEnd')?.addEventListener('change', function () {
         document.getElementById('docZoomReset').onclick = () => {
             scale = 1;
             img.style.transform = 'scale(1)';
-        };
-        document.getElementById('docReload').onclick = () => {
-            if (currentSrc) img.src = currentSrc + '?v=' + Date.now();
         };
     });
 </script>

@@ -128,9 +128,14 @@ uksort($usersByBatch, function ($a, $b) {
         <?php endforeach; ?>
 
         <div class="card">
-            <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
                 <span>Daftar User</span>
-                <div style="display:flex;gap:8px;">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <input type="text"
+                        id="searchUser"
+                        placeholder="🔍 Cari nama..."
+                        style="padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;min-width:250px;">
+
                     <button id="btnExportText" class="btn-secondary">
                         📄 Export Text
                     </button>
@@ -166,7 +171,7 @@ uksort($usersByBatch, function ($a, $b) {
                                 </thead>
                                 <tbody>
                                     <?php foreach ($batchUsers as $i => $u): ?>
-                                        <tr>
+                                        <tr data-search-name="<?= htmlspecialchars(strtolower($u['full_name'])) ?>">
                                             <td><?= $i + 1 ?></td>
                                             <td>
                                                 <strong><?= htmlspecialchars($u['full_name']) ?></strong>
@@ -588,15 +593,71 @@ uksort($usersByBatch, function ($a, $b) {
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        // Simpan referensi DataTable instances untuk kontrol pagination
+        let dataTableInstances = [];
+
         if (window.jQuery && jQuery.fn.DataTable) {
             jQuery('.user-batch-table').each(function() {
-                jQuery(this).DataTable({
+                const table = jQuery(this);
+                const dataTable = table.DataTable({
                     pageLength: 10,
                     order: [
                         [1, 'asc']
                     ],
                     language: {
                         url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/id.json'
+                    }
+                });
+
+                dataTableInstances.push({
+                    tableElement: table[0],
+                    dataTable: dataTable
+                });
+            });
+        }
+
+        // ===============================
+        // FITUR PENCARIAN USER - VANILLA JS (NO DATATABLES API)
+        // ===============================
+        const searchInput = document.getElementById('searchUser');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const keyword = this.value.toLowerCase().trim();
+                const batchCards = document.querySelectorAll('.table-wrapper > .card');
+
+                // Saat searching, tampilkan semua baris di DataTables
+                const isSearching = keyword.length > 0;
+                dataTableInstances.forEach(({dataTable}) => {
+                    dataTable.page.len(isSearching ? -1 : 10).draw(false);
+                });
+
+                batchCards.forEach(card => {
+                    const table = card.querySelector('.user-batch-table');
+                    if (!table) return;
+
+                    const rows = table.querySelectorAll('tbody tr');
+                    let visibleCount = 0;
+
+                    rows.forEach(row => {
+                        // Ambil nama dari data-search-name attribute (sudah lowercase)
+                        const name = row.getAttribute('data-search-name');
+                        if (!name) return;
+
+                        // Cari berdasarkan nama saja
+                        if (keyword === '' || name.includes(keyword)) {
+                            row.style.display = '';
+                            visibleCount++;
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+
+                    // Sembunyikan card batch jika tidak ada user yang cocok
+                    if (visibleCount === 0) {
+                        card.style.display = 'none';
+                    } else {
+                        card.style.display = '';
                     }
                 });
             });
