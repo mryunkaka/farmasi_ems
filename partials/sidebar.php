@@ -62,6 +62,11 @@ function isActive($page)
             <span class="text">Reimbursement</span>
         </a>
 
+        <a href="/dashboard/restaurant_consumption.php" class="<?= isActive('restaurant_consumption.php') ?>">
+            <span class="icon">🍔</span>
+            <span class="text">Restaurant Consumption</span>
+        </a>
+
         <a href="/dashboard/operasi_plastik.php" class="<?= isActive('operasi_plastik.php') ?>">
             <span class="icon">🩺</span>
             <span class="text">Operasi Plastik</span>
