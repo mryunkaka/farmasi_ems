@@ -1,0 +1,40 @@
+[29-Dec-2025 15:26:14 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
+[29-Dec-2025 15:44:42 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
+[29-Dec-2025 15:45:35 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
+[29-Dec-2025 15:46:36 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
+[29-Dec-2025 15:49:11 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
+[29-Dec-2025 15:49:25 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
+[29-Dec-2025 15:52:46 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
+[29-Dec-2025 15:53:12 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'uniq_tx_hash' in /home/hark8423/public_html/ems/backup/rekap.php:309
+Stack trace:
+#0 /home/hark8423/public_html/ems/backup/rekap.php(309): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/backup/rekap.php on line 309
