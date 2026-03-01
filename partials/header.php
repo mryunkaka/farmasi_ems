@@ -276,12 +276,33 @@ if ($userId) {
             // =========================
             // CEK NOTIF + DEADLINE NYATA
             // =========================
+            async function safeFetchJSON(url, options = {}, timeoutMs = 6000) {
+                if (navigator.onLine === false) return null;
+
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+                try {
+                    const res = await fetch(url, {
+                        credentials: 'same-origin',
+                        cache: 'no-store',
+                        ...options,
+                        signal: controller.signal
+                    });
+
+                    if (!res.ok) return null;
+                    return await res.json();
+                } catch (e) {
+                    return null;
+                } finally {
+                    clearTimeout(timeoutId);
+                }
+            }
+
             async function checkFarmasiNotif() {
                 try {
-                    const notifRes = await fetch('/actions/check_farmasi_notif.php', {
-                        cache: 'no-store'
-                    });
-                    const notif = await notifRes.json();
+                    const notif = await safeFetchJSON('/actions/check_farmasi_notif.php');
+                    if (!notif) return;
 
                     /*
                     |-------------------------------------------------
@@ -297,22 +318,69 @@ if ($userId) {
                         return;
                     }
 
-                    const dlRes = await fetch('/actions/get_farmasi_deadline.php', {
-                        cache: 'no-store'
-                    });
-                    const dl = await dlRes.json();
+                    const dl = await safeFetchJSON('/actions/get_farmasi_deadline.php');
+                    if (!dl) return;
 
                     if (dl.active && dl.remaining && !onlineModalActive) {
                         showOnlineModal(notif.message, dl.remaining);
                     }
 
                 } catch (e) {
-                    console.error('Farmasi notif error', e);
+                    // console.error('Farmasi notif error', e);
                 }
             }
 
-            // 🔁 POLLING AMAN
-            notifTimer = setInterval(checkFarmasiNotif, 5000);
+            // 🔁 POLLING AMAN (backoff jika server tidak bisa diakses)
+            let farmasiNotifFailCount = 0;
+            let farmasiNotifInFlight = false;
+
+            function scheduleFarmasiNotif(nextMs) {
+                if (notifTimer) clearTimeout(notifTimer);
+                notifTimer = setTimeout(runFarmasiNotifOnce, nextMs);
+            }
+
+            async function runFarmasiNotifOnce() {
+                if (farmasiNotifInFlight) return;
+                farmasiNotifInFlight = true;
+
+                const beforeFail = farmasiNotifFailCount;
+                try {
+                    const notif = await safeFetchJSON('/actions/check_farmasi_notif.php');
+                    if (!notif) {
+                        farmasiNotifFailCount++;
+                        if (beforeFail === 0) console.warn('Farmasi notif: gagal fetch, polling dibackoff.');
+                        return;
+                    }
+
+                    farmasiNotifFailCount = 0;
+
+                    if (notif.status && notif.status === 'offline') {
+                        removeModal();
+                        return;
+                    }
+
+                    if (!notif.has_notif) return;
+
+                    const dl = await safeFetchJSON('/actions/get_farmasi_deadline.php');
+                    if (dl && dl.active && dl.remaining && !onlineModalActive) {
+                        showOnlineModal(notif.message, dl.remaining);
+                    }
+                } finally {
+                    farmasiNotifInFlight = false;
+                    const base = 5000;
+                    const backoff = Math.min(300000, 60000 * Math.pow(2, Math.min(Math.max(0, farmasiNotifFailCount - 1), 3)));
+                    scheduleFarmasiNotif(farmasiNotifFailCount ? backoff : base);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                runFarmasiNotifOnce();
+            });
+
+            window.addEventListener('online', () => {
+                farmasiNotifFailCount = 0;
+                runFarmasiNotifOnce();
+            });
         </script>
         <script>
             /* ======================================================
@@ -386,10 +454,11 @@ if ($userId) {
             });
 
             async function loadInbox() {
-                const res = await fetch('/actions/get_inbox.php', {
-                    cache: 'no-store'
-                });
-                const data = await res.json();
+                const data = await safeFetchJSON('/actions/get_inbox.php');
+                if (!data) {
+                    inboxList.innerHTML = '<li style="padding:12px;color:#888">Inbox tidak bisa dimuat</li>';
+                    return;
+                }
 
                 inboxList.innerHTML = '';
                 inboxBadge.textContent = data.unread;
@@ -463,13 +532,8 @@ if ($userId) {
              */
             async function pollInbox() {
                 try {
-                    const res = await fetch('/actions/get_inbox.php', {
-                        cache: 'no-store'
-                    });
-
-                    if (!res.ok) return;
-
-                    const data = await res.json();
+                    const data = await safeFetchJSON('/actions/get_inbox.php');
+                    if (!data) return;
 
                     // Update badge
                     inboxBadge.textContent = data.unread;
@@ -488,7 +552,7 @@ if ($userId) {
                     }
 
                 } catch (e) {
-                    console.warn('Inbox polling error', e);
+                    // abaikan error jaringan
                 }
             }
 
@@ -545,8 +609,58 @@ if ($userId) {
             function startInboxPolling() {
                 if (inboxPollingTimer) return;
 
-                pollInbox(); // langsung sekali saat load
-                inboxPollingTimer = setInterval(pollInbox, 10000); // ⏱️ 10 detik
+                let inboxFailCount = 0;
+                let inboxInFlight = false;
+
+                const schedule = (ms) => {
+                    if (inboxPollingTimer) clearTimeout(inboxPollingTimer);
+                    inboxPollingTimer = setTimeout(runOnce, ms);
+                };
+
+                const runOnce = async () => {
+                    if (inboxInFlight) return;
+                    inboxInFlight = true;
+
+                    const beforeFail = inboxFailCount;
+                    try {
+                        const data = await safeFetchJSON('/actions/get_inbox.php');
+                        if (!data) {
+                            inboxFailCount++;
+                            if (beforeFail === 0) console.warn('Inbox: gagal fetch, polling dibackoff.');
+                            return;
+                        }
+
+                        inboxFailCount = 0;
+
+                        // Update badge
+                        inboxBadge.textContent = data.unread;
+                        inboxBadge.style.display = data.unread > 0 ? 'inline-block' : 'none';
+
+                        // ✅ Jika ada inbox BARU
+                        if (data.unread > lastUnreadCount) {
+                            onNewInbox(data.unread - lastUnreadCount);
+                        }
+
+                        lastUnreadCount = data.unread;
+
+                        // Jika dropdown sedang terbuka → refresh list
+                        if (!inboxDropdown.classList.contains('hidden')) {
+                            renderInboxList(data.items);
+                        }
+                    } finally {
+                        inboxInFlight = false;
+                        const base = 10000;
+                        const backoff = Math.min(300000, 60000 * Math.pow(2, Math.min(Math.max(0, inboxFailCount - 1), 3)));
+                        schedule(inboxFailCount ? backoff : base);
+                    }
+                };
+
+                runOnce(); // langsung sekali saat load
+
+                window.addEventListener('online', () => {
+                    inboxFailCount = 0;
+                    runOnce();
+                });
             }
 
             /**
@@ -554,7 +668,7 @@ if ($userId) {
              */
             function stopInboxPolling() {
                 if (inboxPollingTimer) {
-                    clearInterval(inboxPollingTimer);
+                    clearTimeout(inboxPollingTimer);
                     inboxPollingTimer = null;
                 }
             }
