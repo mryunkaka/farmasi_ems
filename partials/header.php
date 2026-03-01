@@ -67,9 +67,6 @@ if ($userId) {
     <link rel="stylesheet"
         href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-
 </head>
 
 <body>

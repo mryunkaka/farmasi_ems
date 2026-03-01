@@ -4,14 +4,17 @@
 
 <script src="/assets/js/app.js"></script>
 
-<!-- jQuery & DataTables -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script>
-    (function realtimeSessionCheck() {
-        setInterval(async () => {
+	<!-- jQuery & DataTables -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+	<!-- DataTables Buttons (harus setelah jQuery + DataTables) -->
+	<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+	<!-- Chart.js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+	<script>
+	    (function realtimeSessionCheck() {
+	        setInterval(async () => {
             try {
                 const res = await fetch('/auth/check_session.php', {
                     credentials: 'same-origin'

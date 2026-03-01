@@ -130,9 +130,17 @@ uksort($usersByBatch, function ($a, $b) {
         <div class="card">
             <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
                 <span>Daftar User</span>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                    <input type="text"
-                        id="searchUser"
+	                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+	                    <select id="searchColumn" style="padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;">
+	                        <option value="all" selected>Semua Kolom</option>
+	                        <option value="name">Nama</option>
+	                        <option value="position">Jabatan</option>
+	                        <option value="role">Role</option>
+	                        <option value="docs">Dokumen</option>
+	                        <option value="join">Tanggal Join</option>
+	                    </select>
+	                    <input type="text"
+	                        id="searchUser"
                         placeholder="🔍 Cari nama..."
                         style="padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;min-width:250px;">
 
@@ -146,19 +154,27 @@ uksort($usersByBatch, function ($a, $b) {
                 </div>
             </div>
 
-            <div class="table-wrapper">
-                <?php foreach ($usersByBatch as $batchName => $batchUsers): ?>
-                    <div class="card" style="margin-bottom:20px;">
-                        <div class="card-header">
-                            <?= htmlspecialchars($batchName) ?>
-                            <span style="font-size:12px;color:#64748b;">
-                                (<?= count($batchUsers) ?> user)
-                            </span>
-                        </div>
+	            <div class="table-wrapper">
+	                <?php foreach ($usersByBatch as $batchName => $batchUsers): ?>
+	                    <div class="card" style="margin-bottom:20px;">
+	                        <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+	                            <div>
+	                                <?= htmlspecialchars($batchName) ?>
+	                                <span style="font-size:12px;color:#64748b;">
+	                                    (<?= count($batchUsers) ?> user)
+	                                </span>
+	                            </div>
 
-                        <div class="table-wrapper">
-                            <table class="table-custom user-batch-table">
-                                <thead>
+	                            <?php if ($batchName === 'Tanpa Batch'): ?>
+	                                <button id="btnExportTanpaBatch" class="btn-secondary" type="button" style="padding:6px 10px;font-size:13px;">
+	                                    📄 Export Tanpa Batch
+	                                </button>
+	                            <?php endif; ?>
+	                        </div>
+
+	                        <div class="table-wrapper">
+	                            <table class="table-custom user-batch-table">
+	                                <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Nama</th>
@@ -169,12 +185,55 @@ uksort($usersByBatch, function ($a, $b) {
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php foreach ($batchUsers as $i => $u): ?>
-                                        <tr data-search-name="<?= htmlspecialchars(strtolower($u['full_name'])) ?>">
-                                            <td><?= $i + 1 ?></td>
-                                            <td>
-                                                <strong><?= htmlspecialchars($u['full_name']) ?></strong>
+	                                <tbody>
+	                                    <?php foreach ($batchUsers as $i => $u): ?>
+	                                        <?php
+	                                        $docs = [
+	                                            'KTP' => $u['file_ktp'],
+	                                            'SIM' => $u['file_sim'],
+	                                            'KTA' => $u['file_kta'],
+	                                            'SERTIFIKAT HELI' => $u['sertifikat_heli'],
+	                                            'SKB' => $u['file_skb'],
+	                                        ];
+
+	                                        $docSearchTokens = [];
+		                                        foreach ($docs as $label => $path) {
+		                                            if (empty($path)) continue;
+		                                            $docSearchTokens[] = strtolower($label);
+		                                            $docSearchTokens[] = strtolower(basename((string)$path));
+		                                        }
+		                                        $docSearch = trim(implode(' ', $docSearchTokens));
+
+		                                        $posSearch = strtolower(trim((string)($u['position'] ?? '')));
+		                                        $roleSearch = strtolower(trim((string)($u['role'] ?? '')));
+		                                        $joinSearch = '';
+		                                        if (!empty($u['tanggal_masuk'])) {
+		                                            try {
+		                                                $dtJoin = new DateTime((string)$u['tanggal_masuk']);
+		                                                $joinSearch = strtolower($dtJoin->format('d M Y')) . ' ' . strtolower($dtJoin->format('Y-m-d'));
+		                                            } catch (Throwable $e) {
+		                                                $joinSearch = strtolower((string)$u['tanggal_masuk']);
+		                                            }
+		                                        }
+
+		                                        $allSearch = trim(implode(' ', array_filter([
+		                                            strtolower((string)$u['full_name']),
+		                                            $posSearch,
+		                                            $roleSearch,
+		                                            $joinSearch,
+		                                            $docSearch,
+		                                        ])));
+		                                        ?>
+			                                        <tr
+			                                            data-search-name="<?= htmlspecialchars(strtolower($u['full_name'])) ?>"
+			                                            data-search-position="<?= htmlspecialchars($posSearch) ?>"
+			                                            data-search-role="<?= htmlspecialchars($roleSearch) ?>"
+			                                            data-search-join="<?= htmlspecialchars($joinSearch) ?>"
+			                                            data-search-docs="<?= htmlspecialchars($docSearch) ?>"
+			                                            data-search-all="<?= htmlspecialchars($allSearch) ?>">
+	                                            <td><?= $i + 1 ?></td>
+	                                            <td>
+	                                                <strong><?= htmlspecialchars($u['full_name']) ?></strong>
 
                                                 <?php if (!empty($u['reactivated_at'])): ?>
                                                     <div style="margin-top:4px;font-size:12px;color:#16a34a;">
@@ -203,20 +262,12 @@ uksort($usersByBatch, function ($a, $b) {
                                                 <?php else: ?>
                                                     <span style="color:#9ca3af;">-</span>
                                                 <?php endif; ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                $docs = [
-                                                    'KTP' => $u['file_ktp'],
-                                                    'SIM' => $u['file_sim'],
-                                                    'KTA' => $u['file_kta'],
-                                                    'SERTIFIKAT HELI' => $u['sertifikat_heli'],
-                                                    'SKB' => $u['file_skb'],
-                                                ];
-
-                                                foreach ($docs as $label => $path):
-                                                    if (!empty($path)):
-                                                ?>
+	                                            </td>
+	                                            <td>
+	                                                <?php
+	                                                foreach ($docs as $label => $path):
+	                                                    if (!empty($path)):
+	                                                ?>
                                                         <a href="#"
                                                             class="doc-badge btn-preview-doc"
                                                             data-src="/<?= htmlspecialchars($path) ?>"
@@ -333,8 +384,8 @@ uksort($usersByBatch, function ($a, $b) {
                 <strong id="resignUserName"></strong>?
             </p>
 
-            <label>Alasan Resign</label>
-            <textarea name="resign_reason" required></textarea>
+	            <label for="resignReason">Alasan Resign</label>
+	            <textarea id="resignReason" name="resign_reason" autocomplete="off" required></textarea>
 
             <div class="modal-actions">
                 <button type="button" class="btn-secondary btn-cancel">Batal</button>
@@ -357,9 +408,9 @@ uksort($usersByBatch, function ($a, $b) {
                 <strong id="reactivateUserName"></strong>?
             </p>
 
-            <label>Keterangan (opsional)</label>
-            <textarea name="reactivate_note"
-                placeholder="Contoh: Kontrak baru / dipanggil kembali"></textarea>
+	            <label for="reactivateNote">Keterangan (opsional)</label>
+	            <textarea id="reactivateNote" name="reactivate_note" autocomplete="off"
+	                placeholder="Contoh: Kontrak baru / dipanggil kembali"></textarea>
 
             <div class="modal-actions">
                 <button type="button" class="btn-secondary btn-cancel">Batal</button>
@@ -376,15 +427,16 @@ uksort($usersByBatch, function ($a, $b) {
         <form method="POST" action="manage_users_action.php" class="form">
             <input type="hidden" name="user_id" id="editUserId">
 
-            <label>Batch</label>
-            <input type="number"
-                name="batch"
-                id="editBatch"
-                min="1"
-                max="26"
-                placeholder="Contoh: 3">
+	            <label for="editBatch">Batch</label>
+	            <input type="number"
+	                name="batch"
+	                id="editBatch"
+	                autocomplete="off"
+	                min="1"
+	                max="26"
+	                placeholder="Contoh: 3">
 
-            <label>Kode Medis / Nomor Induk RS</label>
+	            <label for="editKodeMedis">Kode Medis / Nomor Induk RS</label>
 
             <div class="ems-kode-medis">
                 <input type="text"
@@ -402,11 +454,11 @@ uksort($usersByBatch, function ($a, $b) {
                 Menghapus kode medis akan mengizinkan sistem membuat ulang kode baru.
             </small>
 
-            <label>Nama</label>
-            <input type="text" name="full_name" id="editName" required>
+	            <label for="editName">Nama</label>
+	            <input type="text" name="full_name" id="editName" autocomplete="username" required>
 
-            <label>Jabatan</label>
-            <select name="position" id="editPosition" required>
+	            <label for="editPosition">Jabatan</label>
+	            <select name="position" id="editPosition" autocomplete="organization-title" required>
                 <option value="Trainee">Trainee</option>
                 <option value="Paramedic">Paramedic</option>
                 <option value="(Co.Ast)">(Co.Ast)</option>
@@ -414,8 +466,8 @@ uksort($usersByBatch, function ($a, $b) {
                 <option value="Dokter Spesialis">Dokter Spesialis</option>
             </select>
 
-            <label>Role</label>
-            <select name="role" id="editRole" required>
+	            <label for="editRole">Role</label>
+	            <select name="role" id="editRole" autocomplete="off" required>
                 <option value="Staff">Staff</option>
                 <option value="Staff Manager">Staff Manager</option>
                 <option value="Manager">Manager</option>
@@ -423,12 +475,14 @@ uksort($usersByBatch, function ($a, $b) {
                 <option value="Director">Director</option>
             </select>
 
-            <label>PIN Baru <small>(4 digit, kosongkan jika tidak ganti)</small></label>
-            <input type="password"
-                name="new_pin"
-                inputmode="numeric"
-                pattern="[0-9]{4}"
-                maxlength="4">
+		            <label for="editNewPin">PIN Baru <small>(4 digit, kosongkan jika tidak ganti)</small></label>
+		            <input type="password"
+		                id="editNewPin"
+		                name="new_pin"
+		                autocomplete="new-password"
+		                inputmode="numeric"
+		                pattern="[0-9]{4}"
+		                maxlength="4">
 
             <div class="modal-actions">
                 <button type="button" class="btn-secondary btn-cancel">Batal</button>
@@ -467,11 +521,11 @@ uksort($usersByBatch, function ($a, $b) {
         <form method="POST" action="manage_users_action.php" class="form">
             <input type="hidden" name="action" value="add_user">
 
-            <label>Nama Lengkap</label>
-            <input type="text" name="full_name" required>
+	            <label for="addFullName">Nama Lengkap</label>
+	            <input type="text" id="addFullName" name="full_name" autocomplete="name" required>
 
-            <label>Jabatan</label>
-            <select name="position" required>
+	            <label for="addPosition">Jabatan</label>
+	            <select id="addPosition" name="position" autocomplete="organization-title" required>
                 <option value="Trainee">Trainee</option>
                 <option value="Paramedic">Paramedic</option>
                 <option value="(Co.Ast)">(Co.Ast)</option>
@@ -479,8 +533,8 @@ uksort($usersByBatch, function ($a, $b) {
                 <option value="Dokter Spesialis">Dokter Spesialis</option>
             </select>
 
-            <label>Role</label>
-            <select name="role" required>
+	            <label for="addRole">Role</label>
+	            <select id="addRole" name="role" autocomplete="off" required>
                 <option value="Staff">Staff</option>
                 <option value="Staff Manager">Staff Manager</option>
                 <option value="Manager">Manager</option>
@@ -488,8 +542,8 @@ uksort($usersByBatch, function ($a, $b) {
                 <option value="Director">Director</option>
             </select>
 
-            <label>Batch <small>(opsional)</small></label>
-            <input type="number" name="batch" min="1" max="26" placeholder="Contoh: 3">
+	            <label for="addBatch">Batch <small>(opsional)</small></label>
+	            <input type="number" id="addBatch" name="batch" autocomplete="off" min="1" max="26" placeholder="Contoh: 3">
 
             <small style="color:#64748b;">
                 PIN awal akan otomatis dibuat: <strong>0000</strong>
@@ -592,45 +646,82 @@ uksort($usersByBatch, function ($a, $b) {
         document.getElementById('editModal').style.display = 'none';
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Simpan referensi DataTable instances untuk kontrol pagination
-        let dataTableInstances = [];
+	    document.addEventListener('DOMContentLoaded', function() {
+	        // Simpan referensi DataTable instances untuk kontrol pagination
+	        let dataTableInstances = [];
 
-        if (window.jQuery && jQuery.fn.DataTable) {
-            jQuery('.user-batch-table').each(function() {
-                const table = jQuery(this);
-                const dataTable = table.DataTable({
-                    pageLength: 10,
-                    order: [
-                        [1, 'asc']
-                    ],
-                    language: {
-                        url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/id.json'
-                    }
-                });
+	        function scheduleWork(fn) {
+	            if (typeof window.requestIdleCallback === 'function') {
+	                window.requestIdleCallback(fn, {timeout: 800});
+	            } else {
+	                setTimeout(fn, 0);
+	            }
+	        }
 
-                dataTableInstances.push({
-                    tableElement: table[0],
-                    dataTable: dataTable
-                });
-            });
-        }
+	        scheduleWork(() => {
+	            if (window.jQuery && jQuery.fn.DataTable) {
+	                jQuery('.user-batch-table').each(function() {
+	                    const table = jQuery(this);
+	                    const dataTable = table.DataTable({
+	                        pageLength: 10,
+	                        searching: false,
+	                        dom: 'rtip',
+	                        order: [
+	                            [1, 'asc']
+	                        ],
+	                        language: {
+	                            url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/id.json'
+	                        }
+	                    });
+
+	                    dataTableInstances.push({
+	                        tableElement: table[0],
+	                        dataTable: dataTable
+	                    });
+	                });
+	            }
+	        });
 
         // ===============================
-        // FITUR PENCARIAN USER - VANILLA JS (NO DATATABLES API)
-        // ===============================
-        const searchInput = document.getElementById('searchUser');
+	        // FITUR PENCARIAN USER - VANILLA JS (NO DATATABLES API)
+	        // ===============================
+	        const searchInput = document.getElementById('searchUser');
+	        const searchColumn = document.getElementById('searchColumn');
 
-        if (searchInput) {
-            searchInput.addEventListener('input', function() {
-                const keyword = this.value.toLowerCase().trim();
-                const batchCards = document.querySelectorAll('.table-wrapper > .card');
+	        function updateSearchPlaceholder() {
+	            if (!searchInput) return;
+	            const mode = searchColumn ? searchColumn.value : 'all';
+	            const map = {
+	                all: '🔍 Cari (semua kolom)...',
+	                name: '🔍 Cari nama...',
+	                position: '🔍 Cari jabatan...',
+	                role: '🔍 Cari role...',
+	                docs: '🔍 Cari dokumen (KTP, SIM, SKB, dll)...',
+	                join: '🔍 Cari tanggal join...'
+	            };
+	            searchInput.placeholder = map[mode] || '🔍 Cari...';
+	        }
 
-                // Saat searching, tampilkan semua baris di DataTables
-                const isSearching = keyword.length > 0;
-                dataTableInstances.forEach(({dataTable}) => {
-                    dataTable.page.len(isSearching ? -1 : 10).draw(false);
-                });
+	        if (searchInput) {
+	            updateSearchPlaceholder();
+	            if (searchColumn) {
+	                searchColumn.addEventListener('change', function() {
+	                    updateSearchPlaceholder();
+	                    searchInput.dispatchEvent(new Event('input', {bubbles: true}));
+	                });
+	            }
+
+		            searchInput.addEventListener('input', function() {
+		                const keyword = this.value.toLowerCase().trim();
+		                const terms = keyword.split(/\s+/).filter(Boolean);
+		                const mode = searchColumn ? searchColumn.value : 'all';
+		                const batchCards = document.querySelectorAll('.table-wrapper > .card');
+
+		                // Saat searching, tampilkan semua baris di DataTables
+		                const isSearching = terms.length > 0;
+		                dataTableInstances.forEach(({dataTable}) => {
+		                    dataTable.page.len(isSearching ? -1 : 10).draw(false);
+		                });
 
                 batchCards.forEach(card => {
                     const table = card.querySelector('.user-batch-table');
@@ -639,19 +730,42 @@ uksort($usersByBatch, function ($a, $b) {
                     const rows = table.querySelectorAll('tbody tr');
                     let visibleCount = 0;
 
-                    rows.forEach(row => {
-                        // Ambil nama dari data-search-name attribute (sudah lowercase)
-                        const name = row.getAttribute('data-search-name');
-                        if (!name) return;
+		                    rows.forEach(row => {
+		                        const getAttr = (attr) => (row.getAttribute(attr) || '');
+		                        let haystack = '';
 
-                        // Cari berdasarkan nama saja
-                        if (keyword === '' || name.includes(keyword)) {
-                            row.style.display = '';
-                            visibleCount++;
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
+		                        switch (mode) {
+		                            case 'name':
+		                                haystack = getAttr('data-search-name');
+		                                break;
+		                            case 'position':
+		                                haystack = getAttr('data-search-position');
+		                                break;
+		                            case 'role':
+		                                haystack = getAttr('data-search-role');
+		                                break;
+		                            case 'docs':
+		                                haystack = getAttr('data-search-docs');
+		                                break;
+		                            case 'join':
+		                                haystack = getAttr('data-search-join');
+		                                break;
+		                            case 'all':
+		                            default:
+		                                haystack = getAttr('data-search-all');
+		                                break;
+		                        }
+
+		                        // Cari berdasarkan nama + dokumen (mendukung multi-kata: "yora ktp")
+		                        const isMatch = terms.length === 0 ? true : terms.every(t => haystack.includes(t));
+
+		                        if (isMatch) {
+	                            row.style.display = '';
+	                            visibleCount++;
+	                        } else {
+	                            row.style.display = 'none';
+	                        }
+	                    });
 
                     // Sembunyikan card batch jika tidak ada user yang cocok
                     if (visibleCount === 0) {
@@ -898,22 +1012,62 @@ uksort($usersByBatch, function ($a, $b) {
 </script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+	    document.addEventListener('DOMContentLoaded', function() {
 
-        const btn = document.getElementById('btnExportText');
-        if (!btn) return;
+	        const btn = document.getElementById('btnExportText');
+	        if (!btn) return;
 
-        btn.addEventListener('click', function() {
+	        btn.addEventListener('click', function() {
 
-            let output = '';
+	            function toRoman(num) {
+	                const map = [
+	                    [1000, 'M'],
+	                    [900, 'CM'],
+	                    [500, 'D'],
+	                    [400, 'CD'],
+	                    [100, 'C'],
+	                    [90, 'XC'],
+	                    [50, 'L'],
+	                    [40, 'XL'],
+	                    [10, 'X'],
+	                    [9, 'IX'],
+	                    [5, 'V'],
+	                    [4, 'IV'],
+	                    [1, 'I']
+	                ];
 
-            // LOOP SETIAP TABEL BATCH
-            document.querySelectorAll('.user-batch-table').forEach(table => {
+	                let n = Number(num);
+	                if (!Number.isFinite(n) || n <= 0) return '';
+	                n = Math.floor(n);
 
-                // ambil instance DataTable
-                const dt = jQuery.fn.DataTable.isDataTable(table) ?
-                    jQuery(table).DataTable() :
-                    null;
+	                let out = '';
+	                for (const [value, roman] of map) {
+	                    while (n >= value) {
+	                        out += roman;
+	                        n -= value;
+	                    }
+	                }
+	                return out;
+	            }
+
+	            function getBatchHeaderTitle(batchCard) {
+	                const header = batchCard?.querySelector('.card-header');
+	                if (!header) return '';
+
+	                const firstTextNode = header.childNodes && header.childNodes[0];
+	                const raw = firstTextNode && firstTextNode.textContent ? firstTextNode.textContent : header.textContent;
+	                return String(raw || '').replace(/\s+/g, ' ').trim();
+	            }
+
+	            let output = '';
+
+	            // LOOP SETIAP TABEL BATCH
+	            document.querySelectorAll('.user-batch-table').forEach(table => {
+
+	                // ambil instance DataTable
+	                const dt = (window.jQuery && jQuery.fn && jQuery.fn.DataTable && jQuery.fn.DataTable.isDataTable(table)) ?
+	                    jQuery(table).DataTable() :
+	                    null;
 
                 // simpan pageLength awal
                 let originalLength = null;
@@ -923,29 +1077,53 @@ uksort($usersByBatch, function ($a, $b) {
                     dt.page.len(-1).draw(false); // tampilkan SEMUA row
                 }
 
-                const batchCard = table.closest('.card');
-                const batchTitle = batchCard.querySelector('.card-header')?.innerText || '';
-                const rows = table.querySelectorAll('tbody tr');
+	                const batchCard = table.closest('.card');
+	                if (batchCard && window.getComputedStyle(batchCard).display === 'none') {
+	                    // kembalikan pageLength semula
+	                    if (dt && originalLength !== null) {
+	                        dt.page.len(originalLength).draw(false);
+	                    }
+	                    return;
+	                }
 
-                if (!rows.length) return;
+	                const batchTitleRaw = getBatchHeaderTitle(batchCard);
+	                const rows = table.querySelectorAll('tbody tr');
 
-                output += batchTitle.toUpperCase() + '\n';
+	                if (!rows.length) return;
 
-                let no = 1;
-                rows.forEach(row => {
-                    const nama = row.querySelector('td:nth-child(2) strong')?.innerText || '';
-                    const jabatan = row.querySelector('td:nth-child(3)')?.innerText || '';
+	                const lines = [];
 
-                    output += `${no}. ${nama} (${jabatan})\n`;
-                    no++;
-                });
+	                let no = 1;
+		                rows.forEach(row => {
+		                    if (window.getComputedStyle(row).display === 'none') return;
+		                    const nama = row.querySelector('td:nth-child(2) strong')?.innerText || '';
+		                    const jabatan = row.querySelector('td:nth-child(3)')?.innerText || '';
 
-                output += '\n';
+		                    const noStr = String(no).padStart(2, '0');
+		                    lines.push(`${noStr}. ${nama} (${jabatan})`);
+		                    no++;
+		                });
 
-                // kembalikan pageLength semula
-                if (dt && originalLength !== null) {
-                    dt.page.len(originalLength).draw(false);
-                }
+	                if (lines.length > 0) {
+	                    let batchTitleOut = batchTitleRaw;
+	                    const m = batchTitleRaw.match(/^Batch\s+(\d+)\b/i);
+	                    if (m) {
+	                        const roman = toRoman(parseInt(m[1], 10));
+	                        batchTitleOut = roman ? `BATCH ${roman}` : 'BATCH';
+	                    } else if (/tanpa\s+batch/i.test(batchTitleRaw)) {
+	                        batchTitleOut = 'TANPA BATCH';
+	                    } else {
+	                        batchTitleOut = (batchTitleRaw || 'BATCH').toUpperCase();
+	                    }
+
+	                    output += batchTitleOut + '\n';
+	                    output += lines.join('\n') + '\n\n';
+	                }
+
+	                // kembalikan pageLength semula
+	                if (dt && originalLength !== null) {
+	                    dt.page.len(originalLength).draw(false);
+	                }
             });
 
             if (!output.trim()) {
@@ -967,10 +1145,72 @@ uksort($usersByBatch, function ($a, $b) {
 
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-        });
+	        });
 
-    });
-</script>
+	    });
+	</script>
+
+	<script>
+	    document.addEventListener('DOMContentLoaded', function() {
+	        const btn = document.getElementById('btnExportTanpaBatch');
+	        if (!btn) return;
+
+	        btn.addEventListener('click', function() {
+	            const batchCard = btn.closest('.card');
+	            const table = batchCard ? batchCard.querySelector('.user-batch-table') : null;
+	            if (!table) return;
+
+	            // ambil instance DataTable (kalau ada)
+	            const dt = (window.jQuery && jQuery.fn && jQuery.fn.DataTable && jQuery.fn.DataTable.isDataTable(table)) ?
+	                jQuery(table).DataTable() :
+	                null;
+
+	            // simpan pageLength awal
+	            let originalLength = null;
+	            if (dt) {
+	                originalLength = dt.page.len();
+	                dt.page.len(-1).draw(false); // tampilkan SEMUA row
+	            }
+
+	            const rows = table.querySelectorAll('tbody tr');
+	            const lines = [];
+	            let no = 1;
+
+	            rows.forEach(row => {
+	                if (window.getComputedStyle(row).display === 'none') return;
+	                const nama = row.querySelector('td:nth-child(2) strong')?.innerText || '';
+	                const jabatan = row.querySelector('td:nth-child(3)')?.innerText || '';
+	                const noStr = String(no).padStart(2, '0');
+	                lines.push(`${noStr}. ${nama} (${jabatan})`);
+	                no++;
+	            });
+
+	            // kembalikan pageLength semula
+	            if (dt && originalLength !== null) {
+	                dt.page.len(originalLength).draw(false);
+	            }
+
+	            if (!lines.length) {
+	                alert('Tidak ada data Tanpa Batch untuk diexport.');
+	                return;
+	            }
+
+	            const output = 'TANPA BATCH\n' + lines.join('\n') + '\n';
+
+	            const blob = new Blob([output], {type: 'text/plain;charset=utf-8;'});
+	            const url = URL.createObjectURL(blob);
+
+	            const a = document.createElement('a');
+	            a.href = url;
+	            a.download = 'tanpa_batch.txt';
+	            document.body.appendChild(a);
+	            a.click();
+
+	            document.body.removeChild(a);
+	            URL.revokeObjectURL(url);
+	        });
+	    });
+	</script>
 
 
-<?php include __DIR__ . '/../partials/footer.php'; ?>
+	<?php include __DIR__ . '/../partials/footer.php'; ?>
