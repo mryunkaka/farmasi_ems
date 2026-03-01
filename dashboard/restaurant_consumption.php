@@ -277,7 +277,21 @@ $stats = $stmtTotal->fetch(PDO::FETCH_ASSOC);
 
                                 <!-- TANGGAL & JAM -->
                                 <td>
-                                    <div><?= date('d M Y', strtotime($r['delivery_date'])) ?></div>
+                                    <?php
+                                    $daysIndonesian = [
+                                        'Monday' => 'Senin',
+                                        'Tuesday' => 'Selasa',
+                                        'Wednesday' => 'Rabu',
+                                        'Thursday' => 'Kamis',
+                                        'Friday' => 'Jumat',
+                                        'Saturday' => 'Sabtu',
+                                        'Sunday' => 'Minggu'
+                                    ];
+                                    $dayEnglish = date('l', strtotime($r['delivery_date']));
+                                    $dayIndo = $daysIndonesian[$dayEnglish] ?? $dayEnglish;
+                                    $dateFormatted = date('d M Y', strtotime($r['delivery_date']));
+                                    ?>
+                                    <div><strong><?= $dayIndo ?></strong>, <?= $dateFormatted ?></div>
                                     <small style="color:#64748b;"><?= date('H:i', strtotime($r['delivery_time'])) ?></small>
                                 </td>
 
@@ -330,9 +344,53 @@ $stats = $stmtTotal->fetch(PDO::FETCH_ASSOC);
 
                                 <!-- STATUS -->
                                 <td>
-                                    <span class="badge-status badge-<?= htmlspecialchars($r['status']) ?>">
-                                        <?= strtoupper(htmlspecialchars($r['status'])) ?>
-                                    </span>
+                                    <div style="display:flex;flex-direction:column;gap:6px;">
+                                        <span class="badge-status badge-<?= htmlspecialchars($r['status']) ?>">
+                                            <?= strtoupper(htmlspecialchars($r['status'])) ?>
+                                        </span>
+
+                                        <?php if (!empty($r['approved_by_name']) && !empty($r['approved_at'])): ?>
+                                            <?php
+                                            $daysIndonesian = [
+                                                'Monday' => 'Senin',
+                                                'Tuesday' => 'Selasa',
+                                                'Wednesday' => 'Rabu',
+                                                'Thursday' => 'Kamis',
+                                                'Friday' => 'Jumat',
+                                                'Saturday' => 'Sabtu',
+                                                'Sunday' => 'Minggu'
+                                            ];
+                                            $approvedDayEnglish = date('l', strtotime($r['approved_at']));
+                                            $approvedDayIndo = $daysIndonesian[$approvedDayEnglish] ?? $approvedDayEnglish;
+                                            $approvedDateFormatted = date('d M Y H:i', strtotime($r['approved_at']));
+                                            ?>
+                                            <small style="color:#059669;font-size:11px;">
+                                                ✅ Approved by: <strong><?= htmlspecialchars($r['approved_by_name']) ?></strong><br>
+                                                <span style="color:#64748b;"><?= $approvedDayIndo ?>, <?= $approvedDateFormatted ?></span>
+                                            </small>
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($r['paid_by_name']) && !empty($r['paid_at'])): ?>
+                                            <?php
+                                            $daysIndonesian = [
+                                                'Monday' => 'Senin',
+                                                'Tuesday' => 'Selasa',
+                                                'Wednesday' => 'Rabu',
+                                                'Thursday' => 'Kamis',
+                                                'Friday' => 'Jumat',
+                                                'Saturday' => 'Sabtu',
+                                                'Sunday' => 'Minggu'
+                                            ];
+                                            $paidDayEnglish = date('l', strtotime($r['paid_at']));
+                                            $paidDayIndo = $daysIndonesian[$paidDayEnglish] ?? $paidDayEnglish;
+                                            $paidDateFormatted = date('d M Y H:i', strtotime($r['paid_at']));
+                                            ?>
+                                            <small style="color:#0369a1;font-size:11px;">
+                                                💰 Paid by: <strong><?= htmlspecialchars($r['paid_by_name']) ?></strong><br>
+                                                <span style="color:#64748b;"><?= $paidDayIndo ?>, <?= $paidDateFormatted ?></span>
+                                            </small>
+                                        <?php endif; ?>
+                                    </div>
                                 </td>
 
                                 <!-- AKSI -->

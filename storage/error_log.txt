@@ -181,3 +181,4 @@ Stack trace:
 [14-Jan-2026 15:02:15 Asia/Jakarta] PHP Warning:  Undefined array key "weekly_transaksi" in /home/hark8423/public_html/ems/dashboard/rekap_farmasi.php on line 864
 [14-Jan-2026 15:02:15 Asia/Jakarta] PHP Warning:  Undefined array key "weekly_transaksi" in /home/hark8423/public_html/ems/dashboard/rekap_farmasi.php on line 864
 [14-Jan-2026 15:02:15 Asia/Jakarta] PHP Warning:  Undefined array key "weekly_transaksi" in /home/hark8423/public_html/ems/dashboard/rekap_farmasi.php on line 864
+[28-Feb-2026 09:40:26 Asia/Jakarta] PHP Warning:  Undefined array key 1 in D:\Project\Web\farmasi-ems\auth\auth_guard.php on line 14
