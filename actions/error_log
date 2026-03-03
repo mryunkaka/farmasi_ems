@@ -1,0 +1,885 @@
+[13-Jan-2026 07:40:50 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:40:55 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:40:59 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:03 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:08 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:13 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:19 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:24 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:29 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:34 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:39 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:44 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:49 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:54 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:41:59 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:04 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:09 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:14 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:19 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:24 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:29 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:34 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:38 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:44 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:48 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:53 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:42:59 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:04 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:09 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:14 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:19 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:23 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:26 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:36 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:41 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:46 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:51 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:43:56 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:01 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:06 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:11 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:16 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:21 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:26 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:36 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:41 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:46 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:51 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:44:56 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:45:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:46:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:47:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:48:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:49:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:50:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:51:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:52:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:53:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:54:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:55:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:56:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:56:58 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:01 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:06 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:11 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:16 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:21 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:26 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:36 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:41 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:46 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:51 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:57:56 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:58:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 07:59:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:00:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:01:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:02:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:03:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:04:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:05:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:06:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:07:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:08:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:11 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:16 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:21 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:26 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:36 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:41 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:46 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:51 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:09:56 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:10:01 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:10:06 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:10:11 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:10:31 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:11:32 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:12:11 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:12:11 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:47:03 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:47:08 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:47:27 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:47:33 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:47:37 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[13-Jan-2026 08:47:42 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(
+            SELECT COUNT(*)
+            FROM sales sw
+            WHERE ...' at line 8 in /home/hark8423/public_html/ems/actions/get_online_medics.php:7
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_online_medics.php(7): PDO->query()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_online_medics.php on line 7
+[25-Jan-2026 03:10:14 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query in /home/hark8423/public_html/ems/actions/get_fairness_status.php:67
+Stack trace:
+#0 /home/hark8423/public_html/ems/actions/get_fairness_status.php(67): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hark8423/public_html/ems/actions/get_fairness_status.php on line 67

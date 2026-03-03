@@ -1,0 +1,63 @@
+[2026-01-17 16:30:52] === CRON TEST START ===
+[2026-01-17 16:30:52] Load autoload
+[2026-01-17 16:30:52] FATAL ERROR: Failed opening required '/home/hark8423/public_html/ems/cron/../vendor/autoload.php' (include_path='.:/opt/alt/php84/usr/share/pear:/opt/alt/php84/usr/share/php:/usr/share/pear:/usr/share/php')
+[2026-01-17 16:30:52] #0 {main}
+[2026-01-17 16:34:14] === CRON TEST START ===
+[2026-01-17 16:34:14] Load autoload
+[2026-01-17 16:34:14] Load database
+[2026-01-17 16:34:14] Load push config
+[2026-01-17 16:34:14] Init WebPush
+[2026-01-17 16:34:14] Query subscriptions
+[2026-01-17 16:34:14] Subscription count: 1
+[2026-01-17 16:34:14] Queue push
+[2026-01-17 16:34:14] Flush push
+[2026-01-17 16:34:14] PUSH OK
+[2026-01-17 16:34:14] === CRON TEST END SUCCESS ===
+[2026-01-17 16:34:40] === CRON TEST START ===
+[2026-01-17 16:34:40] Load autoload
+[2026-01-17 16:34:40] Load database
+[2026-01-17 16:34:40] Load push config
+[2026-01-17 16:34:40] Init WebPush
+[2026-01-17 16:34:40] Query subscriptions
+[2026-01-17 16:34:40] Subscription count: 1
+[2026-01-17 16:34:40] Queue push
+[2026-01-17 16:34:40] Flush push
+[2026-01-17 16:34:41] PUSH OK
+[2026-01-17 16:34:41] === CRON TEST END SUCCESS ===
+[2026-01-17 16:36:57] === CRON TEST START ===
+[2026-01-17 16:36:57] Load autoload
+[2026-01-17 16:36:57] Load database
+[2026-01-17 16:36:57] Load push config
+[2026-01-17 16:36:57] Init WebPush
+[2026-01-17 16:36:57] Query subscriptions
+[2026-01-17 16:36:57] Subscription count: 1
+[2026-01-17 16:36:57] Queue push
+[2026-01-17 16:36:57] Flush push
+[2026-01-17 16:36:57] PUSH OK
+[2026-01-17 16:36:57] === CRON TEST END SUCCESS ===
+[2026-01-17 16:37:16] === CRON TEST START ===
+[2026-01-17 16:37:16] Load autoload
+[2026-01-17 16:37:16] Load database
+[2026-01-17 16:37:16] Load push config
+[2026-01-17 16:37:16] Init WebPush
+[2026-01-17 16:37:16] Query subscriptions
+[2026-01-17 16:37:16] Subscription count: 1
+[2026-01-17 16:37:16] Queue push
+[2026-01-17 16:37:16] Flush push
+[2026-01-17 16:37:17] PUSH OK
+[2026-01-17 16:37:17] === CRON TEST END SUCCESS ===
+[2026-01-19 10:20:31] === CRON TEST START ===
+[2026-01-19 10:20:31] Load autoload
+[2026-01-19 10:20:31] Load database
+[2026-01-19 10:20:31] Load push config
+[2026-01-19 10:20:31] Init WebPush
+[2026-01-19 10:20:31] Query subscriptions
+[2026-01-19 10:20:31] Subscription count: 3
+[2026-01-19 10:20:31] Queue push
+[2026-01-19 10:20:31] Queue push
+[2026-01-19 10:20:31] Queue push
+[2026-01-19 10:20:31] Flush push
+[2026-01-19 10:20:32] PUSH OK
+[2026-01-19 10:20:32] PUSH OK
+[2026-01-19 10:20:32] PUSH OK
+[2026-01-19 10:20:32] === CRON TEST END SUCCESS ===
